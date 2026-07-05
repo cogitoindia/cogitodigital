@@ -1,0 +1,1134 @@
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useSpring, useScroll, useTransform, AnimatePresence } from "motion/react";
+import {
+  Instagram, Facebook, Linkedin, Youtube, MessageCircle, Globe, Search, Palette,
+  TrendingUp, Megaphone, Video, Target, Sparkles, ArrowUpRight, Star, Play,
+  Chrome, LineChart, Camera, Coffee, Notebook, BookOpen, MapPin, Phone, Mail,
+} from "lucide-react";
+import { Reveal, SplitReveal, Counter, Magnetic } from "./experience";
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  BACKGROUND — mesh + orange gradient + particles                */
+/* ══════════════════════════════════════════════════════════════ */
+export function AmbientBackground() {
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div
+        className="absolute -left-40 top-[-10%] size-[70vw] rounded-full opacity-70 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(closest-side, color-mix(in oklab, var(--ember) 45%, transparent), transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute -right-40 top-1/3 size-[55vw] rounded-full opacity-40 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(closest-side, color-mix(in oklab, var(--ember-glow) 55%, transparent), transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute left-1/3 bottom-[-20%] size-[60vw] rounded-full opacity-30 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(closest-side, oklch(0.9 0.05 240 / 0.9), transparent 70%)",
+        }}
+      />
+      {/* particles */}
+      <div className="absolute inset-0">
+        {Array.from({ length: 40 }).map((_, i) => {
+          const size = 2 + Math.random() * 3;
+          return (
+            <motion.span
+              key={i}
+              className="absolute rounded-full bg-foreground/30"
+              style={{
+                width: size, height: size,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{ y: [0, -18, 0], opacity: [0.15, 0.5, 0.15] }}
+              transition={{ duration: 6 + Math.random() * 6, repeat: Infinity, delay: Math.random() * 4 }}
+            />
+          );
+        })}
+      </div>
+      <div className="noise-overlay" />
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  HERO — split editorial + orbital workspace                     */
+/* ══════════════════════════════════════════════════════════════ */
+function useMouseParallax() {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 60, damping: 20 });
+  const sy = useSpring(y, { stiffness: 60, damping: 20 });
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      x.set((e.clientX - cx) / cx);
+      y.set((e.clientY - cy) / cy);
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [x, y]);
+  return { x: sx, y: sy };
+}
+
+export function Hero() {
+  const { x, y } = useMouseParallax();
+  const parallax = (depth: number) => ({
+    x: useTransform(x, (v) => v * depth),
+    y: useTransform(y, (v) => v * depth),
+  });
+
+  const fg = parallax(30);
+  const mid = parallax(15);
+  const bg = parallax(6);
+
+  return (
+    <section id="top" className="relative min-h-[100svh] pt-28">
+      <div className="mx-auto grid max-w-[1400px] gap-10 px-6 md:grid-cols-[minmax(0,42%)_minmax(0,58%)] md:pt-10">
+        {/* LEFT — editorial */}
+        <div className="relative z-10 flex flex-col justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-border/60 bg-white/60 px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-muted-foreground backdrop-blur"
+          >
+            <span className="size-1.5 rounded-full bg-[oklch(0.75_0.19_55)]" />
+            Premium Brand Growth Studio · Siliguri
+          </motion.div>
+
+          <h1 className="text-display text-[clamp(3rem,7.5vw,7.5rem)]">
+            <SplitReveal text="We Build" delay={0.6} className="block" />
+            <SplitReveal text="Brands" delay={0.75} className="block" />
+            <span className="block">
+              <span className="inline-block overflow-hidden align-bottom">
+                <motion.span
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ delay: 0.9, duration: 1.1, ease: [0.19, 1, 0.22, 1] }}
+                  className="inline-block italic text-[oklch(0.75_0.19_55)]"
+                  style={{ fontFamily: "'General Sans', serif", fontWeight: 500 }}
+                >
+                  People
+                </motion.span>
+              </span>{" "}
+              <SplitReveal text="Remember." delay={1.05} />
+            </span>
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4, duration: 0.9 }}
+            className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground"
+          >
+            Helping ambitious businesses grow through branding, websites, SEO,
+            content production and performance marketing — designed with care,
+            engineered for results.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.55, duration: 0.8 }}
+            className="mt-8 flex flex-wrap items-center gap-3"
+          >
+            <Magnetic>
+              <a
+                href="#contact"
+                className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background shadow-luxe transition-transform hover:scale-[1.04]"
+              >
+                Start Your Project
+                <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Magnetic>
+            <Magnetic strength={0.2}>
+              <a
+                href="#work"
+                className="group inline-flex items-center gap-2 rounded-full border border-border bg-white/60 px-6 py-3.5 text-sm font-medium backdrop-blur transition-colors hover:bg-white"
+              >
+                <span className="grid size-6 place-items-center rounded-full bg-foreground text-background">
+                  <Play className="size-3 fill-current" />
+                </span>
+                Explore Our Work
+              </a>
+            </Magnetic>
+          </motion.div>
+
+          {/* Trust stats */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.8, duration: 1 }}
+            className="mt-14 grid max-w-lg grid-cols-4 gap-4"
+          >
+            {[
+              { n: 890, s: "+", l: "Projects" },
+              { n: 200, s: "+", l: "Clients" },
+              { n: 91, s: "%", l: "Satisfaction" },
+              { n: 4, s: "+", l: "Years" },
+            ].map((s) => (
+              <div key={s.l}>
+                <div className="text-display text-3xl">
+                  <Counter to={s.n} suffix={s.s} />
+                </div>
+                <div className="mt-1 text-[11px] uppercase tracking-widest text-muted-foreground">
+                  {s.l}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* RIGHT — floating workspace */}
+        <div className="relative h-[520px] md:h-[720px]">
+          <div className="absolute inset-0">
+            {/* Orbit rings visualized */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              {[280, 400, 560].map((size, i) => (
+                <div
+                  key={size}
+                  className="absolute rounded-full border border-dashed border-foreground/10"
+                  style={{
+                    width: size, height: size,
+                    left: -size / 2, top: -size / 2,
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Orbit layer 1 — social */}
+            <OrbitLayer
+              radius={140}
+              duration={14}
+              icons={[
+                { I: Instagram, c: "#E4405F" },
+                { I: Facebook, c: "#1877F2" },
+                { I: Linkedin, c: "#0A66C2" },
+                { I: Youtube, c: "#FF0000" },
+                { I: MessageCircle, c: "#25D366" },
+                { I: Chrome, c: "#4285F4" },
+                { I: Search, c: "#111" },
+              ]}
+            />
+
+            {/* Orbit layer 2 — services */}
+            <OrbitLayer
+              radius={200}
+              duration={22}
+              reverse
+              icons={[
+                { I: Globe, c: "var(--ember)" },
+                { I: Search, c: "var(--ember)" },
+                { I: Palette, c: "var(--ember)" },
+                { I: Megaphone, c: "var(--ember)" },
+                { I: Video, c: "var(--ember)" },
+                { I: Target, c: "var(--ember)" },
+              ]}
+              glass
+            />
+
+            {/* Orbit layer 3 — cards */}
+            <OrbitLayer
+              radius={280}
+              duration={38}
+              card
+              items={[
+                { label: "Google Reviews", value: "4.9 ★", icon: Star },
+                { label: "Campaign", value: "Running", icon: TrendingUp },
+                { label: "Projects", value: "890+", icon: Sparkles },
+                { label: "SEO", value: "Rank #1", icon: LineChart },
+                { label: "Website", value: "Live", icon: Globe },
+              ]}
+            />
+
+            {/* Center — Laptop mock */}
+            <motion.div
+              style={{ x: fg.x, y: fg.y }}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            >
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <LaptopMock />
+              </motion.div>
+            </motion.div>
+
+            {/* Floating tools */}
+            <FloatingChip style={{ top: "8%", left: "8%" }} parallax={mid}>
+              <PhoneMock />
+            </FloatingChip>
+            <FloatingChip style={{ top: "6%", right: "6%" }} parallax={fg} delay={0.4}>
+              <GlassCard>
+                <div className="flex items-center gap-2">
+                  <LineChart className="size-4 text-[oklch(0.75_0.19_55)]" />
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Analytics</div>
+                    <div className="text-sm font-semibold">+42.8% MoM</div>
+                  </div>
+                </div>
+              </GlassCard>
+            </FloatingChip>
+            <FloatingChip style={{ bottom: "14%", left: "4%" }} parallax={mid} delay={0.8}>
+              <GlassCard>
+                <div className="flex items-center gap-2">
+                  <Instagram className="size-4 text-pink-500" />
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Instagram</div>
+                    <div className="text-sm font-semibold">12.4K reach</div>
+                  </div>
+                </div>
+              </GlassCard>
+            </FloatingChip>
+            <FloatingChip style={{ bottom: "6%", right: "8%" }} parallax={fg} delay={1.2}>
+              <GlassCard>
+                <div className="flex items-center gap-2">
+                  <Star className="size-4 fill-yellow-400 text-yellow-400" />
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Reviews</div>
+                    <div className="text-sm font-semibold">4.9 · Google</div>
+                  </div>
+                </div>
+              </GlassCard>
+            </FloatingChip>
+            <FloatingChip style={{ top: "40%", left: "-2%" }} parallax={bg} delay={0.2}>
+              <div className="grid size-14 place-items-center rounded-2xl border border-glass-border bg-glass shadow-luxe backdrop-blur-xl">
+                <Camera className="size-6 text-foreground/70" />
+              </div>
+            </FloatingChip>
+            <FloatingChip style={{ top: "44%", right: "-2%" }} parallax={bg} delay={0.6}>
+              <div className="grid size-14 place-items-center rounded-2xl border border-glass-border bg-glass shadow-luxe backdrop-blur-xl">
+                <Coffee className="size-6 text-foreground/70" />
+              </div>
+            </FloatingChip>
+            <FloatingChip style={{ bottom: "30%", right: "-4%" }} parallax={mid} delay={1}>
+              <div className="grid size-14 place-items-center rounded-2xl border border-glass-border bg-glass shadow-luxe backdrop-blur-xl">
+                <Notebook className="size-6 text-foreground/70" />
+              </div>
+            </FloatingChip>
+            <FloatingChip style={{ top: "70%", left: "12%" }} parallax={mid} delay={1.4}>
+              <div className="grid size-14 place-items-center rounded-2xl border border-glass-border bg-glass shadow-luxe backdrop-blur-xl">
+                <BookOpen className="size-6 text-foreground/70" />
+              </div>
+            </FloatingChip>
+          </div>
+        </div>
+      </div>
+
+      {/* scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-muted-foreground"
+      >
+        Scroll · Experience
+      </motion.div>
+    </section>
+  );
+}
+
+function FloatingChip({
+  children, style, parallax, delay = 0,
+}: {
+  children: React.ReactNode; style: React.CSSProperties;
+  parallax: { x: any; y: any }; delay?: number;
+}) {
+  return (
+    <motion.div
+      style={{ ...style, x: parallax.x, y: parallax.y }}
+      className="absolute"
+      initial={{ opacity: 0, scale: 0.6 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 1.4 + delay, duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+    >
+      <motion.div
+        animate={{ y: [0, -8, 0], rotate: [0, 1.5, 0] }}
+        transition={{ duration: 5 + delay, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function GlassCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="rounded-2xl border border-glass-border bg-glass px-3 py-2 shadow-luxe backdrop-blur-xl">
+      {children}
+    </div>
+  );
+}
+
+function LaptopMock() {
+  return (
+    <div className="relative w-[340px] md:w-[420px]">
+      <div className="rounded-t-2xl bg-neutral-900 p-2 shadow-luxe">
+        <div className="overflow-hidden rounded-xl bg-background">
+          <div className="flex items-center gap-1.5 border-b border-border/60 bg-neutral-50 px-3 py-2">
+            <div className="size-2 rounded-full bg-red-400" />
+            <div className="size-2 rounded-full bg-yellow-400" />
+            <div className="size-2 rounded-full bg-green-400" />
+            <div className="ml-3 rounded-md bg-white px-2 py-0.5 text-[10px] text-muted-foreground">
+              cogitoindia.in
+            </div>
+          </div>
+          <div className="relative aspect-[16/10] bg-gradient-to-br from-white via-white to-orange-50">
+            <div className="absolute left-4 top-4 space-y-2">
+              <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Cogito</div>
+              <div className="text-display text-lg leading-tight">
+                Brands<br />people<br />remember.
+              </div>
+            </div>
+            <div className="absolute right-4 top-4 grid grid-cols-2 gap-1.5">
+              {[0, 1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="size-10 rounded-md"
+                  style={{
+                    background:
+                      i % 2 === 0
+                        ? "linear-gradient(135deg, var(--ember), var(--ember-glow))"
+                        : "linear-gradient(135deg, #111, #333)",
+                  }}
+                />
+              ))}
+            </div>
+            <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[9px] text-muted-foreground">
+              <span>© 2026 Cogito Digital</span>
+              <span>Siliguri, India</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="h-2 rounded-b-3xl bg-gradient-to-b from-neutral-800 to-neutral-600" />
+      <div className="mx-auto h-1 w-24 rounded-b-lg bg-neutral-400" />
+    </div>
+  );
+}
+
+function PhoneMock() {
+  return (
+    <div className="w-24 rounded-[1.4rem] border-4 border-neutral-900 bg-neutral-900 shadow-luxe">
+      <div className="overflow-hidden rounded-[1rem] bg-gradient-to-br from-orange-50 via-white to-white p-2">
+        <div className="text-[7px] font-semibold uppercase tracking-widest text-muted-foreground">Cogito</div>
+        <div className="mt-1 text-[10px] leading-tight text-display">Brands people remember.</div>
+        <div className="mt-2 grid grid-cols-3 gap-1">
+          {[0,1,2,3,4,5].map((i) => (
+            <div key={i} className="aspect-square rounded" style={{
+              background: i % 2 ? "linear-gradient(135deg, var(--ember), var(--ember-glow))" : "#111"
+            }} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Orbit layer implementation */
+function OrbitLayer({
+  radius, duration, reverse = false, icons, glass = false, card = false, items,
+}: {
+  radius: number; duration: number; reverse?: boolean;
+  icons?: { I: any; c: string }[]; glass?: boolean; card?: boolean;
+  items?: { label: string; value: string; icon: any }[];
+}) {
+  const list = card ? items! : icons!;
+  return (
+    <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      <motion.div
+        className="relative"
+        style={{ width: radius * 2, height: radius * 2 }}
+        animate={{ rotate: reverse ? -360 : 360 }}
+        transition={{ duration, repeat: Infinity, ease: "linear" }}
+      >
+        {list.map((_, i) => {
+          const angle = (i / list.length) * Math.PI * 2;
+          const x = Math.cos(angle) * radius + radius;
+          const y = Math.sin(angle) * radius + radius;
+          return (
+            <motion.div
+              key={i}
+              className="absolute -translate-x-1/2 -translate-y-1/2"
+              style={{ left: x, top: y }}
+              animate={{ rotate: reverse ? 360 : -360 }}
+              transition={{ duration, repeat: Infinity, ease: "linear" }}
+            >
+              {card ? (
+                <div className="w-max rounded-2xl border border-glass-border bg-glass px-3 py-2 shadow-luxe backdrop-blur-xl">
+                  <div className="flex items-center gap-2">
+                    {(() => {
+                      const Icon = (list[i] as any).icon;
+                      return <Icon className="size-3.5 text-[oklch(0.75_0.19_55)]" />;
+                    })()}
+                    <div className="text-[10px] leading-tight">
+                      <div className="text-muted-foreground">{(list[i] as any).label}</div>
+                      <div className="font-semibold">{(list[i] as any).value}</div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className={`grid size-11 place-items-center rounded-2xl ${
+                    glass
+                      ? "border border-glass-border bg-glass backdrop-blur-xl"
+                      : "bg-white"
+                  } shadow-luxe`}
+                >
+                  {(() => {
+                    const Ic = (list[i] as any).I;
+                    const c = (list[i] as any).c;
+                    return <Ic className="size-5" style={{ color: c }} />;
+                  })()}
+                </div>
+              )}
+            </motion.div>
+          );
+        })}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  SERVICES — floating glass spheres                              */
+/* ══════════════════════════════════════════════════════════════ */
+const SERVICES = [
+  { title: "Brand Strategy", desc: "Positioning, story, and identity systems that scale.", icon: Palette },
+  { title: "Website Design", desc: "Editorial, motion-driven websites that convert.", icon: Globe },
+  { title: "SEO", desc: "Rank for the searches that grow your revenue.", icon: Search },
+  { title: "Performance Marketing", desc: "Meta & Google Ads engineered for ROAS.", icon: Target },
+  { title: "Social Media", desc: "Content, community and creative that resonates.", icon: Megaphone },
+  { title: "Content Production", desc: "Photo, film and story — crafted, not templated.", icon: Video },
+  { title: "Lead Generation", desc: "Funnels, forms and follow-up that fill your pipeline.", icon: TrendingUp },
+  { title: "Brand Identity", desc: "Logos, guidelines and design systems built to last.", icon: Sparkles },
+];
+
+export function Services() {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <section id="services" className="relative py-32">
+      <div className="mx-auto max-w-[1400px] px-6">
+        <div className="mb-16 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+              02 — Services
+            </div>
+            <h2 className="text-display text-[clamp(2.5rem,6vw,5.5rem)]">
+              <SplitReveal text="Everything" /> <br />
+              <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>
+                a brand needs.
+              </span>
+            </h2>
+          </div>
+          <Reveal>
+            <p className="max-w-sm text-muted-foreground">
+              Eight disciplines under one roof. Grab, hover, click — each sphere
+              opens into a full-screen chapter of what we do.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {SERVICES.map((s, i) => (
+            <ServiceSphere key={s.title} s={s} i={i} onOpen={() => setOpen(i)} />
+          ))}
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {open !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[80] grid place-items-center bg-background/70 p-6 backdrop-blur-2xl"
+            onClick={() => setOpen(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 25 }}
+              className="relative max-w-3xl rounded-3xl border border-glass-border bg-white/80 p-10 shadow-luxe backdrop-blur-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {(() => {
+                const S = SERVICES[open];
+                const Icon = S.icon;
+                return (
+                  <>
+                    <div className="mb-6 inline-grid size-16 place-items-center rounded-2xl bg-gradient-to-br from-[oklch(0.75_0.19_55)] to-[oklch(0.82_0.17_70)] text-white shadow-glow">
+                      <Icon className="size-7" />
+                    </div>
+                    <h3 className="text-display text-4xl">{S.title}</h3>
+                    <p className="mt-4 max-w-xl text-lg text-muted-foreground">{S.desc}</p>
+                    <div className="mt-8 grid gap-3 sm:grid-cols-3 text-sm">
+                      {["Discovery", "Craft", "Launch & Scale"].map((step) => (
+                        <div key={step} className="rounded-2xl border border-border/60 bg-white/60 p-4">
+                          <div className="text-xs uppercase tracking-widest text-muted-foreground">Phase</div>
+                          <div className="mt-1 font-semibold">{step}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => setOpen(null)}
+                      className="absolute right-4 top-4 rounded-full border border-border/60 bg-white/70 px-3 py-1 text-xs"
+                    >
+                      Close
+                    </button>
+                  </>
+                );
+              })()}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
+function ServiceSphere({ s, i, onOpen }: { s: any; i: number; onOpen: () => void }) {
+  const Icon = s.icon;
+  const ref = useRef<HTMLButtonElement>(null);
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 250, damping: 18 });
+  const sry = useSpring(ry, { stiffness: 250, damping: 18 });
+  return (
+    <motion.button
+      ref={ref}
+      onClick={onOpen}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: i * 0.06, duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
+      onMouseMove={(e) => {
+        const r = ref.current!.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        ry.set(px * 20);
+        rx.set(-py * 20);
+      }}
+      onMouseLeave={() => { rx.set(0); ry.set(0); }}
+      style={{ rotateX: srx, rotateY: sry, transformPerspective: 900 }}
+      className="group relative aspect-square overflow-hidden rounded-[2rem] border border-glass-border bg-glass p-6 text-left shadow-luxe backdrop-blur-xl transition-shadow hover:shadow-glow"
+      data-cursor="hover"
+    >
+      <div
+        className="absolute inset-0 opacity-70 transition-opacity group-hover:opacity-100"
+        style={{
+          background:
+            "radial-gradient(120% 80% at 20% 10%, oklch(1 0 0 / 0.9), transparent 55%), radial-gradient(80% 60% at 100% 100%, color-mix(in oklab, var(--ember) 30%, transparent), transparent 70%)",
+        }}
+      />
+      <div className="relative flex h-full flex-col justify-between">
+        <div className="grid size-12 place-items-center rounded-2xl border border-white/70 bg-white/70 backdrop-blur">
+          <Icon className="size-5 text-[oklch(0.75_0.19_55)]" />
+        </div>
+        <div>
+          <div className="text-display text-2xl leading-tight">{s.title}</div>
+          <div className="mt-2 text-xs text-muted-foreground line-clamp-2">{s.desc}</div>
+          <div className="mt-4 inline-flex items-center gap-1 text-xs text-foreground/80">
+            Open <ArrowUpRight className="size-3" />
+          </div>
+        </div>
+      </div>
+    </motion.button>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  ABOUT — pinned storytelling                                    */
+/* ══════════════════════════════════════════════════════════════ */
+export function About() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y1 = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [40, -160]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1.05, 1.15]);
+  return (
+    <section id="about" ref={ref} className="relative py-32">
+      <div className="mx-auto max-w-[1400px] px-6">
+        <div className="mb-8 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+          03 — About
+        </div>
+        <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] md:gap-24">
+          <motion.h2
+            style={{ y: y1 }}
+            className="text-display text-[clamp(3rem,8vw,8rem)]"
+          >
+            Most brands <br />
+            <span className="italic text-muted-foreground" style={{ fontFamily: "'General Sans'" }}>get seen.</span> <br />
+            Very few <br />
+            <span className="text-[oklch(0.75_0.19_55)]">get remembered.</span>
+          </motion.h2>
+          <motion.div style={{ y: y2 }} className="space-y-6 pt-8 text-base leading-relaxed text-muted-foreground md:pt-32">
+            <p>
+              We're a small studio of strategists, designers and engineers based
+              in Siliguri, quietly building brands for founders who care about
+              craft.
+            </p>
+            <p>
+              We believe design is a competitive advantage. Motion is a language.
+              And every pixel — every millisecond — is a chance to earn trust.
+            </p>
+            <div className="grid grid-cols-2 gap-3 pt-4">
+              {["Craft over templates", "Strategy first", "Motion as language", "Metrics that matter"].map((t) => (
+                <div key={t} className="rounded-2xl border border-border/60 bg-white/60 p-4 text-sm font-medium text-foreground backdrop-blur">
+                  {t}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div
+          style={{ scale }}
+          className="mt-24 aspect-[16/8] w-full overflow-hidden rounded-[2.5rem] shadow-luxe"
+        >
+          <div className="relative h-full w-full bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900">
+            <div
+              className="absolute inset-0 opacity-70"
+              style={{
+                background:
+                  "radial-gradient(60% 60% at 30% 30%, color-mix(in oklab, var(--ember) 60%, transparent), transparent 70%)",
+              }}
+            />
+            <div className="absolute inset-0 grid place-items-center text-white">
+              <div className="text-center">
+                <div className="text-[10px] uppercase tracking-[0.4em] text-white/60">The Studio</div>
+                <div className="mt-3 text-display text-[clamp(2rem,5vw,4rem)]">Cogito · Siliguri</div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  PORTFOLIO — horizontal pinned scroll                           */
+/* ══════════════════════════════════════════════════════════════ */
+const WORK = [
+  { title: "Aurora Coffee", tag: "Brand · Web", tone: "from-orange-200 to-orange-400" },
+  { title: "Meridian Realty", tag: "Identity · SEO", tone: "from-neutral-800 to-neutral-500" },
+  { title: "Nova Cosmetics", tag: "E-commerce", tone: "from-pink-200 to-rose-400" },
+  { title: "Kite Analytics", tag: "SaaS Web", tone: "from-blue-200 to-indigo-500" },
+  { title: "Field Studio", tag: "Editorial", tone: "from-stone-200 to-stone-500" },
+];
+
+export function Portfolio() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
+  return (
+    <section id="work" ref={ref} className="relative h-[400vh]">
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+        <div className="mx-auto mb-10 flex w-full max-w-[1400px] items-end justify-between px-6">
+          <div>
+            <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">04 — Selected Work</div>
+            <h2 className="text-display text-[clamp(2rem,5vw,4rem)]">
+              Case studies, <span className="italic text-muted-foreground" style={{ fontFamily: "'General Sans'" }}>not portfolios.</span>
+            </h2>
+          </div>
+          <div className="hidden text-xs text-muted-foreground md:block">Scroll →</div>
+        </div>
+        <motion.div style={{ x }} className="flex gap-8 pl-6">
+          {WORK.map((w, i) => (
+            <WorkCard key={w.title} w={w} i={i} />
+          ))}
+          <div className="min-w-[30vw]" />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function WorkCard({ w, i }: { w: any; i: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const rx = useMotionValue(0), ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 200, damping: 20 });
+  const sry = useSpring(ry, { stiffness: 200, damping: 20 });
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={(e) => {
+        const r = ref.current!.getBoundingClientRect();
+        ry.set(((e.clientX - r.left) / r.width - 0.5) * 12);
+        rx.set(-((e.clientY - r.top) / r.height - 0.5) * 12);
+      }}
+      onMouseLeave={() => { rx.set(0); ry.set(0); }}
+      style={{ rotateX: srx, rotateY: sry, transformPerspective: 1200 }}
+      className="relative h-[70vh] w-[62vw] shrink-0 overflow-hidden rounded-[2.5rem] shadow-luxe md:w-[46vw]"
+      data-cursor="hover"
+    >
+      <div className={`absolute inset-0 bg-gradient-to-br ${w.tone}`} />
+      <div className="absolute inset-0 bg-black/10" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(60% 40% at 20% 20%, oklch(1 0 0 / 0.35), transparent 70%)",
+        }}
+      />
+      <div className="absolute inset-0 flex flex-col justify-between p-8 text-white">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em]">
+          <span>0{i + 1} / 0{WORK.length}</span>
+          <span>{w.tag}</span>
+        </div>
+        <div>
+          <div className="text-display text-[clamp(2rem,4vw,4rem)]">{w.title}</div>
+          <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 px-3 py-1 text-xs backdrop-blur">
+            View case study <ArrowUpRight className="size-3" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  PROCESS — pinned timeline                                      */
+/* ══════════════════════════════════════════════════════════════ */
+const STEPS = [
+  { n: "01", t: "Discover", d: "Immersion, interviews and audits — we learn your business inside out." },
+  { n: "02", t: "Strategy", d: "Positioning, messaging and a roadmap tied to real outcomes." },
+  { n: "03", t: "Design", d: "Brand and product design that feels intentional, not decorative." },
+  { n: "04", t: "Develop", d: "Editorial, motion-driven builds engineered for performance." },
+  { n: "05", t: "Launch", d: "A launch moment — narrative, assets, campaigns, PR." },
+  { n: "06", t: "Scale", d: "SEO, ads and content — compounding growth month over month." },
+];
+export function Process() {
+  return (
+    <section id="process" className="relative py-32">
+      <div className="mx-auto max-w-[1400px] px-6">
+        <div className="mb-16 grid gap-4 md:grid-cols-2 md:items-end">
+          <div>
+            <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">05 — Process</div>
+            <h2 className="text-display text-[clamp(2.5rem,6vw,5.5rem)]">
+              Six chapters. <br />
+              <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>
+                One narrative.
+              </span>
+            </h2>
+          </div>
+          <Reveal>
+            <p className="text-muted-foreground">
+              A process that keeps taste and craft at the center — from the first
+              conversation to the tenth quarter of growth.
+            </p>
+          </Reveal>
+        </div>
+        <div className="relative">
+          <div className="absolute left-[calc(2rem+1px)] top-0 h-full w-px bg-border md:left-1/2" />
+          <div className="space-y-16">
+            {STEPS.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.05}>
+                <div className={`relative grid gap-6 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:col-start-2" : ""}`}>
+                  <div className="relative pl-16 md:pl-0 md:pr-16 md:text-right">
+                    <div className="absolute left-0 top-2 grid size-14 place-items-center rounded-full border border-glass-border bg-glass text-xs font-mono shadow-luxe backdrop-blur-xl md:left-1/2 md:-translate-x-1/2">
+                      {s.n}
+                    </div>
+                    <div className="text-display text-4xl md:text-5xl">{s.t}</div>
+                    <p className="mt-3 max-w-sm text-sm text-muted-foreground md:ml-auto">{s.d}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  TESTIMONIALS + LOGOS                                           */
+/* ══════════════════════════════════════════════════════════════ */
+const TESTIMONIALS = [
+  { n: "Rohit S.", r: "Founder, Aurora Coffee", q: "They didn't just design a brand. They gave us a voice we hear every day." },
+  { n: "Ananya M.", r: "CMO, Meridian Realty", q: "Traffic doubled in one quarter. But the site itself — that's the story." },
+  { n: "Vikram P.", r: "CEO, Kite Analytics", q: "The most thoughtful team we've worked with. Every detail earns its place." },
+  { n: "Priya K.", r: "Founder, Nova", q: "Cogito is the reason our launch felt like an event, not a post." },
+  { n: "Arjun T.", r: "Director, Field Studio", q: "Motion, taste, and results. Rare to find all three." },
+];
+export function Testimonials() {
+  return (
+    <section className="relative py-32">
+      <div className="mx-auto max-w-[1400px] px-6">
+        <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">06 — Voices</div>
+            <h2 className="text-display text-[clamp(2.5rem,6vw,5rem)]">
+              Founders who <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>trusted us.</span>
+            </h2>
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-white/70 px-4 py-2 backdrop-blur">
+            <Star className="size-4 fill-yellow-400 text-yellow-400" />
+            <span className="text-sm font-semibold">4.9</span>
+            <span className="text-xs text-muted-foreground">· 120+ Google Reviews</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
+        <div className="flex gap-6" style={{ width: "max-content", animation: "marquee 60s linear infinite" }}>
+          {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+            <div key={i} className="w-[380px] shrink-0 rounded-3xl border border-glass-border bg-glass p-7 shadow-luxe backdrop-blur-xl">
+              <div className="mb-4 flex gap-0.5">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <Star key={s} className="size-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <p className="text-lg leading-snug">"{t.q}"</p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="grid size-10 place-items-center rounded-full bg-gradient-to-br from-[oklch(0.75_0.19_55)] to-[oklch(0.82_0.17_70)] text-sm font-semibold text-white">
+                  {t.n[0]}
+                </div>
+                <div>
+                  <div className="text-sm font-semibold">{t.n}</div>
+                  <div className="text-xs text-muted-foreground">{t.r}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Logos marquee */}
+      <div className="mt-20 border-y border-border/60 py-10">
+        <div className="relative overflow-hidden">
+          <div className="flex gap-16 opacity-60" style={{ width: "max-content", animation: "marquee 45s linear infinite" }}>
+            {[...Array(2)].flatMap((_, k) =>
+              ["Aurora", "Meridian", "Nova", "Kite", "Field", "Halcyon", "Beacon", "Northwind", "Lumen", "Terra"].map((l, i) => (
+                <div key={`${k}-${i}`} className="text-display text-3xl tracking-tight text-foreground/70 transition-colors hover:text-[oklch(0.75_0.19_55)]">
+                  {l}.
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  BRANDS — logo wall on dark gradient                            */
+/* ══════════════════════════════════════════════════════════════ */
+const brandLogos = import.meta.glob("@/assets/brands/*.asset.json", {
+  eager: true,
+}) as Record<string, { default: { url: string; original_filename: string } }>;
+
+export function Brands() {
+  const logos = Object.values(brandLogos).map((m) => ({
+    url: m.default.url,
+    name: m.default.original_filename
+      .replace(/\.webp$/i, "")
+      .replace(/[_-]+/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase()),
+  }));
+
+  return (
+    <section id="brands" className="relative py-32">
+      <div className="mx-auto max-w-[1400px] px-6">
+        <div
+          className="relative overflow-hidden rounded-[2.5rem] px-6 py-20 md:px-16 md:py-28"
+          style={{
+            background:
+              "radial-gradient(120% 80% at 20% 0%, oklch(0.28 0.08 55 / 0.9), transparent 60%), radial-gradient(100% 80% at 100% 100%, oklch(0.25 0.12 30 / 0.85), transparent 55%), linear-gradient(160deg, oklch(0.14 0.02 260) 0%, oklch(0.08 0.01 260) 100%)",
+          }}
+        >
+          {/* subtle grid */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage:
+                "linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)",
+              backgroundSize: "56px 56px",
+            }}
+          />
+          {/* glow */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full opacity-50 blur-3xl"
+            style={{
+              background:
+                "radial-gradient(closest-side, oklch(0.75 0.19 55 / 0.6), transparent 70%)",
+            }}
+          />
+
+          <div className="relative">
+            <Reveal>
+              <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-white/50">
+                07 — Brands
+              </div>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <h2 className="text-display max-w-4xl text-[clamp(2.25rem,6vw,4.75rem)] text-white">
+                Brands that work with{" "}
+                <span
+                  className="italic text-[oklch(0.82_0.17_70)]"
+                  style={{ fontFamily: "'General Sans'" }}
+                >
+                  Cogito.
+                </span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p className="mt-5 max-w-xl text-base text-white/60">
+                From heritage hospitality to modern lifestyle labels — a
+                growing family of brands scaling with us.
+              </p>
+            </Reveal>
+
+            <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+              {logos.map((logo, i) => (
+                <motion.div
+                  key={logo.url}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{
+                    duration: 0.7,
+                    delay: (i % 5) * 0.05,
+                    ease: [0.19, 1, 0.22, 1],
+                  }}
+                  className="group relative flex aspect-[4/3] items-center justify-center bg-white p-8 transition-all duration-500 hover:bg-white/95 md:p-10"
+                >
+                  <img
+                    src={logo.url}
+                    alt={logo.name}
+                    loading="lazy"
+                    className="max-h-24 w-auto max-w-[90%] object-contain transition-transform duration-500 group-hover:scale-105 md:max-h-28"
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  CONTACT + FOOTER                                               */
+/* ══════════════════════════════════════════════════════════════ */
+export function Contact() {
+  return (
+    <section id="contact" className="relative py-32">
+      <div className="mx-auto grid max-w-[1400px] gap-16 px-6 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+        <div>
+          <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">08 — Contact</div>
+
+          <h2 className="text-display text-[clamp(2.5rem,7vw,6rem)]">
+            Let's build <br />
+            something <br />
+            <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>
+              extraordinary.
+            </span>
+          </h2>
+          <div className="mt-10 space-y-4 text-sm">
+            <a href="tel:7431052034" className="flex items-center gap-3 text-foreground hover:text-[oklch(0.75_0.19_55)]">
+              <Phone className="size-4" /> 74310 52034
+            </a>
+            <a href="mailto:hello@cogitoindia.in" className="flex items-center gap-3 text-foreground hover:text-[oklch(0.75_0.19_55)]">
+              <Mail className="size-4" /> hello@cogitoindia.in
+            </a>
+            <div className="flex items-center gap-3 text-muted-foreground">
+              <MapPin className="size-4" /> Siliguri, West Bengal, India
+            </div>
+          </div>
+        </div>
+
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="rounded-3xl border border-glass-border bg-glass p-8 shadow-luxe backdrop-blur-xl"
+        >
+          <div className="space-y-5">
+            {[
+              { label: "Your name", type: "text", ph: "Ada Lovelace" },
+              { label: "Email", type: "email", ph: "you@company.com" },
+              { label: "Company", type: "text", ph: "Cogito Studio" },
+            ].map((f) => (
+              <label key={f.label} className="block">
+                <span className="text-[11px] uppercase tracking-widest text-muted-foreground">{f.label}</span>
+                <input
+                  type={f.type}
+                  placeholder={f.ph}
+                  className="mt-1 w-full border-b border-border bg-transparent py-3 text-lg text-foreground placeholder:text-muted-foreground/60 focus:border-[oklch(0.75_0.19_55)] focus:outline-none"
+                />
+              </label>
+            ))}
+            <label className="block">
+              <span className="text-[11px] uppercase tracking-widest text-muted-foreground">Tell us about your project</span>
+              <textarea
+                rows={4}
+                placeholder="What are you building?"
+                className="mt-1 w-full border-b border-border bg-transparent py-3 text-lg text-foreground placeholder:text-muted-foreground/60 focus:border-[oklch(0.75_0.19_55)] focus:outline-none"
+              />
+            </label>
+            <Magnetic>
+              <button
+                type="submit"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background shadow-luxe hover:scale-[1.03]"
+              >
+                Send message <ArrowUpRight className="size-4" />
+              </button>
+            </Magnetic>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer className="relative border-t border-border/60 pt-24 pb-10">
+      <div className="mx-auto max-w-[1400px] px-6">
+        <div className="text-display text-[clamp(3rem,10vw,12rem)] leading-[0.9]">
+          Ready to build <br />
+          a brand <br />
+          <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>
+            people remember?
+          </span>
+        </div>
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-6 border-t border-border/60 pt-8 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <span className="grid size-7 place-items-center rounded-full bg-foreground text-background text-[10px]">C.</span>
+            © {new Date().getFullYear()} Cogito Digital — Siliguri, India
+          </div>
+          <div className="flex items-center gap-4">
+            {[Instagram, Facebook, Linkedin, Youtube].map((I, i) => (
+              <a key={i} href="#" className="grid size-9 place-items-center rounded-full border border-border/60 bg-white/70 backdrop-blur transition-colors hover:text-[oklch(0.75_0.19_55)]">
+                <I className="size-4" />
+              </a>
+            ))}
+          </div>
+          <div className="flex items-center gap-4">
+            <a href="#work">Work</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
