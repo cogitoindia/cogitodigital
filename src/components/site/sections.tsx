@@ -12,6 +12,7 @@ import { ImageSliderPenthouse } from "./image-slider-penthouse";
 import { ImageSliderKite } from "./image-slider-kite";
 import { ImageSliderField } from "./image-slider-field";
 import { Lightbox } from "./lightbox";
+import { Team } from "./team";
 import bpWebsites from "@/assets/banners/bp-websites.webp";
 import ecoSearch from "@/assets/banners/eco-search.webp";
 import ecoAutomation from "@/assets/banners/eco-automation.webp";
@@ -972,9 +973,13 @@ function WorkCard({ w, i, onOpenLightbox }: { w: any; i: number; onOpenLightbox:
         transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
         className="relative flex h-[70vh] w-[62vw] shrink-0 flex-col items-center justify-center overflow-hidden rounded-[2.5rem] shadow-luxe md:w-[46vw]"
         style={{
-          background: "linear-gradient(135deg, oklch(0.75 0.19 55) 0%, oklch(0.82 0.17 70) 100%)",
+          backgroundImage: `url(${csSaas1})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40" />
         {/* Animated gradient overlay */}
         <motion.div
           className="absolute inset-0 opacity-30"
@@ -989,15 +994,6 @@ function WorkCard({ w, i, onOpenLightbox }: { w: any; i: number; onOpenLightbox:
           style={{
             backgroundImage: "radial-gradient(circle at 30% 20%, oklch(1 0 0 / 0.5), transparent 50%), radial-gradient(circle at 80% 80%, oklch(1 0 0 / 0.4), transparent 50%)",
             backgroundSize: "200% 200%",
-          }}
-        />
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              "linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
           }}
         />
         <div className="relative flex flex-col items-center text-center px-8">
@@ -1337,6 +1333,8 @@ export function Brands() {
     </section>
   );
 }
+
+export { Team };
 
 /* ══════════════════════════════════════════════════════════════ */
 /*  CONTACT + FOOTER                                               */

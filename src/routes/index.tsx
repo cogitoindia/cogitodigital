@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav, SmoothScroll } from "@/components/site/experience";
 import {
-  AmbientBackground, Hero, Services, About, Portfolio, Process, Testimonials, Brands, Contact, Footer,
+  AmbientBackground, Hero, Services, About, Portfolio, Process, Testimonials, Brands, Team, Contact, Footer,
 } from "@/components/site/sections";
 
 export const Route = createFileRoute("/")({
@@ -21,6 +21,7 @@ function Index() {
         <Process />
         <Testimonials />
         <Brands />
+        <Team />
         <Contact />
       </main>
       <Footer />
