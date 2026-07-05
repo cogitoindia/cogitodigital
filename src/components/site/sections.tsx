@@ -6,6 +6,12 @@ import {
   Chrome, LineChart, Camera, Coffee, Notebook, BookOpen, MapPin, Phone, Mail,
 } from "lucide-react";
 import { Reveal, SplitReveal, Counter, Magnetic } from "./experience";
+import { ImageSlider } from "./image-slider";
+import { ImageSliderMeridian } from "./image-slider-meridian";
+import { ImageSliderPenthouse } from "./image-slider-penthouse";
+import { ImageSliderKite } from "./image-slider-kite";
+import { ImageSliderField } from "./image-slider-field";
+import { Lightbox } from "./lightbox";
 import bpWebsites from "@/assets/banners/bp-websites.webp";
 import ecoSearch from "@/assets/banners/eco-search.webp";
 import ecoAutomation from "@/assets/banners/eco-automation.webp";
@@ -17,6 +23,40 @@ import csSaas3 from "@/assets/banners/cs-saas-3.webp";
 import csSaas4 from "@/assets/banners/cs-saas-4.webp";
 import contactHeroBg from "@/assets/banners/contact-hero-bg.webp";
 import homepageImage from "@/assets/homepage-compressed-image.webp";
+// Luxury Living images
+import luxury1 from "@/assets/luxuryliving/A-new-you-in-the-spotlight.webp";
+import luxury2 from "@/assets/luxuryliving/Comfort-redefined-in-modern-living-room.webp";
+import luxury3 from "@/assets/luxuryliving/Modern-dining-with-family-focus.webp";
+import luxury4 from "@/assets/luxuryliving/Three-sofas-one-choice.webp";
+// TFS images
+import tfs1 from "@/assets/tfs/2025-11-19-3.webp";
+import tfs2 from "@/assets/tfs/2025-11-19-5.webp";
+import tfs3 from "@/assets/tfs/2025-11-19-6.webp";
+import tfs4 from "@/assets/tfs/2025-11-19.webp";
+import tfs5 from "@/assets/tfs/2026-03-19-1.webp";
+import tfs6 from "@/assets/tfs/new-brand.webp";
+// Penthouse images
+import pent1 from "@/assets/penthouse/penthouse_creatives (1).webp";
+import pent2 from "@/assets/penthouse/penthouse_creatives (2).webp";
+import pent3 from "@/assets/penthouse/penthouse_creatives (3).webp";
+import pent4 from "@/assets/penthouse/penthouse_creatives (4).webp";
+import pent5 from "@/assets/penthouse/penthouse_creatives (5).webp";
+import pent6 from "@/assets/penthouse/penthouse_creatives (6).webp";
+// Error images
+import err1 from "@/assets/error/Error-Brand-2.webp";
+import err2 from "@/assets/error/Error-Brand.webp";
+import err3 from "@/assets/error/Error-Saturday-with-DJ-Omar.webp";
+import err4 from "@/assets/error/braning.webp";
+import err5 from "@/assets/error/error-brand-1.webp";
+import err6 from "@/assets/error/errorevent.webp";
+// Sumeru images
+import sum1 from "@/assets/sumeru/sumerustudio-branding-creative-10.webp";
+import sum2 from "@/assets/sumeru/sumerustudio-branding-creative-12.webp";
+import sum3 from "@/assets/sumeru/sumerustudio-branding-creative-13.webp";
+import sum4 from "@/assets/sumeru/sumerustudio-branding-creative-4.webp";
+import sum5 from "@/assets/sumeru/sumerustudio-branding-creative-5.webp";
+import sum6 from "@/assets/sumeru/sumerustudio-branding-creative-7.webp";
+import sum7 from "@/assets/sumeru/sumerustudio-branding-creative-9.webp";
 
 /* ══════════════════════════════════════════════════════════════ */
 /*  BACKGROUND — mesh + orange gradient + particles                */
@@ -865,11 +905,11 @@ function EcosystemCards() {
 /*  PORTFOLIO — horizontal pinned scroll                           */
 /* ══════════════════════════════════════════════════════════════ */
 const WORK = [
-  { title: "Aurora Coffee", tag: "Brand · Web", tone: "from-orange-200 to-orange-400" },
-  { title: "Meridian Realty", tag: "Identity · SEO", tone: "from-neutral-800 to-neutral-500" },
-  { title: "Nova Cosmetics", tag: "E-commerce", tone: "from-pink-200 to-rose-400" },
-  { title: "Kite Analytics", tag: "SaaS Web", tone: "from-blue-200 to-indigo-500" },
-  { title: "Field Studio", tag: "Editorial", tone: "from-stone-200 to-stone-500" },
+  { title: "Luxury Living Branding", tag: "Brand · Web", tone: "from-orange-200 to-orange-400", images: [luxury1, luxury2, luxury3, luxury4] },
+  { title: "The Furnishing Story", tag: "Identity · SEO", tone: "from-neutral-800 to-neutral-500", images: [tfs1, tfs2, tfs3, tfs4, tfs5, tfs6] },
+  { title: "Penthouse Branding", tag: "E-commerce", tone: "from-pink-200 to-rose-400", images: [pent1, pent2, pent3, pent4, pent5, pent6] },
+  { title: "Error Brew & Pub", tag: "SaaS Web", tone: "from-blue-200 to-indigo-500", images: [err1, err2, err3, err4, err5, err6] },
+  { title: "Sumeru Branding", tag: "Editorial", tone: "from-stone-200 to-stone-500", images: [sum1, sum2, sum3, sum4, sum5, sum6, sum7] },
   { title: "Zenith Hotels", tag: "Hospitality · Brand", tone: "from-amber-200 to-amber-500", isCTA: true },
 ];
 
@@ -877,6 +917,16 @@ export function Portfolio() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-200%"]);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = (images: string[], index = 0) => {
+    setLightboxImages(images);
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
   return (
     <section id="work" ref={ref} className="relative h-[800vh]">
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
@@ -891,16 +941,22 @@ export function Portfolio() {
         </div>
         <motion.div style={{ x }} className="flex gap-8 pl-6">
           {WORK.map((w, i) => (
-            <WorkCard key={w.title} w={w} i={i} />
+            <WorkCard key={w.title} w={w} i={i} onOpenLightbox={openLightbox} />
           ))}
           <div className="min-w-[4vw]" />
         </motion.div>
       </div>
+      <Lightbox
+        images={lightboxImages}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        initialIndex={lightboxIndex}
+      />
     </section>
   );
 }
 
-function WorkCard({ w, i }: { w: any; i: number }) {
+function WorkCard({ w, i, onOpenLightbox }: { w: any; i: number; onOpenLightbox: (images: string[], index?: number) => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const rx = useMotionValue(0), ry = useMotionValue(0);
   const srx = useSpring(rx, { stiffness: 200, damping: 20 });
@@ -1009,26 +1065,45 @@ function WorkCard({ w, i }: { w: any; i: number }) {
         rx.set(-((e.clientY - r.top) / r.height - 0.5) * 12);
       }}
       onMouseLeave={() => { rx.set(0); ry.set(0); }}
+      onClick={() => w.images && onOpenLightbox(w.images)}
       style={{ rotateX: srx, rotateY: sry, transformPerspective: 1200 }}
-      className="relative h-[70vh] w-[62vw] shrink-0 overflow-hidden rounded-[2.5rem] shadow-luxe md:w-[46vw]"
+      className="relative h-[70vh] w-[62vw] shrink-0 overflow-hidden rounded-[2.5rem] shadow-luxe md:w-[46vw] cursor-pointer"
       data-cursor="hover"
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${w.tone}`} />
-      <div className="absolute inset-0 bg-black/10" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(60% 40% at 20% 20%, oklch(1 0 0 / 0.35), transparent 70%)",
-        }}
-      />
+      {/* Use ImageSlider for Luxury Living Branding card */}
+      {i === 0 && w.title === "Luxury Living Branding" ? (
+        <ImageSlider />
+      ) : i === 1 && w.title === "The Furnishing Story" ? (
+        <ImageSliderMeridian />
+      ) : i === 2 && w.title === "Penthouse Branding" ? (
+        <ImageSliderPenthouse />
+      ) : i === 3 && w.title === "Error Brew & Pub" ? (
+        <ImageSliderKite />
+      ) : i === 4 && w.title === "Sumeru Branding" ? (
+        <ImageSliderField />
+      ) : (
+        <>
+          <div className={`absolute inset-0 bg-gradient-to-br ${w.tone}`} />
+          <div className="absolute inset-0 bg-black/10" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(60% 40% at 20% 20%, oklch(1 0 0 / 0.35), transparent 70%)",
+            }}
+          />
+        </>
+      )}
       <div className="absolute inset-0 flex flex-col justify-between p-8 text-white">
         <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em]">
           <span>0{i + 1} / 0{WORK.length}</span>
           <span>{w.tag}</span>
         </div>
         <div>
-          <div className="text-display text-[clamp(2rem,4vw,4rem)]">{w.title}</div>
+          <div className="text-display text-[clamp(2rem,4vw,4rem)]" style={{ 
+            color: w.title === "Luxury Living Branding" ? "#F3852B" : "white",
+            filter: w.title === "Penthouse Branding" ? "blur(0.5px)" : "none"
+          }}>{w.title}</div>
           <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 px-3 py-1 text-xs backdrop-blur">
             View case study <ArrowUpRight className="size-3" />
           </div>
