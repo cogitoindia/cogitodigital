@@ -6,6 +6,17 @@ import {
   Chrome, LineChart, Camera, Coffee, Notebook, BookOpen, MapPin, Phone, Mail,
 } from "lucide-react";
 import { Reveal, SplitReveal, Counter, Magnetic } from "./experience";
+import bpWebsites from "@/assets/banners/bp-websites.webp";
+import ecoSearch from "@/assets/banners/eco-search.webp";
+import ecoAutomation from "@/assets/banners/eco-automation.webp";
+import bpOrganic from "@/assets/banners/bp-organic.webp";
+import bpInfra from "@/assets/banners/bp-infra.webp";
+import bpAutomation from "@/assets/banners/bp-automation.webp";
+import csSaas1 from "@/assets/banners/cs-saas-1.webp";
+import csSaas3 from "@/assets/banners/cs-saas-3.webp";
+import csSaas4 from "@/assets/banners/cs-saas-4.webp";
+import contactHeroBg from "@/assets/banners/contact-hero-bg.webp";
+import homepageImage from "@/assets/homepage-compressed-image.webp";
 
 /* ══════════════════════════════════════════════════════════════ */
 /*  BACKGROUND — mesh + orange gradient + particles                */
@@ -189,7 +200,7 @@ export function Hero() {
         </div>
 
         {/* RIGHT — floating workspace */}
-        <div className="relative h-[520px] md:h-[720px]">
+        <div className="relative h-[520px] md:h-[720px] overflow-hidden">
           <div className="absolute inset-0">
             {/* Orbit rings visualized */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -250,7 +261,7 @@ export function Hero() {
               ]}
             />
 
-            {/* Center — Laptop mock */}
+            {/* Center — Homepage image */}
             <motion.div
               style={{ x: fg.x, y: fg.y }}
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -258,8 +269,9 @@ export function Hero() {
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="max-w-md"
               >
-                <LaptopMock />
+                <img src={homepageImage} alt="Homepage" className="w-full rounded-lg shadow-2xl" />
               </motion.div>
             </motion.div>
 
@@ -503,14 +515,14 @@ function OrbitLayer({
 /*  SERVICES — floating glass spheres                              */
 /* ══════════════════════════════════════════════════════════════ */
 const SERVICES = [
-  { title: "Brand Strategy", desc: "Positioning, story, and identity systems that scale.", icon: Palette },
-  { title: "Website Design", desc: "Editorial, motion-driven websites that convert.", icon: Globe },
-  { title: "SEO", desc: "Rank for the searches that grow your revenue.", icon: Search },
-  { title: "Performance Marketing", desc: "Meta & Google Ads engineered for ROAS.", icon: Target },
-  { title: "Social Media", desc: "Content, community and creative that resonates.", icon: Megaphone },
-  { title: "Content Production", desc: "Photo, film and story — crafted, not templated.", icon: Video },
-  { title: "Lead Generation", desc: "Funnels, forms and follow-up that fill your pipeline.", icon: TrendingUp },
-  { title: "Brand Identity", desc: "Logos, guidelines and design systems built to last.", icon: Sparkles },
+  { title: "Brand Strategy", desc: "Positioning, story, and identity systems that scale.", icon: Palette, img: ecoSearch },
+  { title: "Website Design", desc: "Editorial, motion-driven websites that convert.", icon: Globe, img: bpWebsites },
+  { title: "SEO", desc: "Rank for the searches that grow your revenue.", icon: Search, img: csSaas1 },
+  { title: "Performance Marketing", desc: "Meta & Google Ads engineered for ROAS.", icon: Target, img: bpOrganic },
+  { title: "Social Media", desc: "Content, community and creative that resonates.", icon: Megaphone, img: csSaas3 },
+  { title: "Content Production", desc: "Photo, film and story — crafted, not templated.", icon: Video, img: contactHeroBg },
+  { title: "Lead Generation", desc: "Funnels, forms and follow-up that fill your pipeline.", icon: TrendingUp, img: csSaas4 },
+  { title: "Brand Identity", desc: "Logos, guidelines and design systems built to last.", icon: Sparkles, img: bpAutomation },
 ];
 
 export function Services() {
@@ -599,51 +611,62 @@ export function Services() {
 
 function ServiceSphere({ s, i, onOpen }: { s: any; i: number; onOpen: () => void }) {
   const Icon = s.icon;
-  const ref = useRef<HTMLButtonElement>(null);
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const srx = useSpring(rx, { stiffness: 250, damping: 18 });
-  const sry = useSpring(ry, { stiffness: 250, damping: 18 });
   return (
-    <motion.button
-      ref={ref}
-      onClick={onOpen}
+    <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: i * 0.06, duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
-      onMouseMove={(e) => {
-        const r = ref.current!.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        ry.set(px * 20);
-        rx.set(-py * 20);
-      }}
-      onMouseLeave={() => { rx.set(0); ry.set(0); }}
-      style={{ rotateX: srx, rotateY: sry, transformPerspective: 900 }}
-      className="group relative aspect-square overflow-hidden rounded-[2rem] border border-glass-border bg-glass p-6 text-left shadow-luxe backdrop-blur-xl transition-shadow hover:shadow-glow"
+      className="group aspect-square [perspective:1000px]"
       data-cursor="hover"
     >
       <div
-        className="absolute inset-0 opacity-70 transition-opacity group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(120% 80% at 20% 10%, oklch(1 0 0 / 0.9), transparent 55%), radial-gradient(80% 60% at 100% 100%, color-mix(in oklab, var(--ember) 30%, transparent), transparent 70%)",
-        }}
-      />
-      <div className="relative flex h-full flex-col justify-between">
-        <div className="grid size-12 place-items-center rounded-2xl border border-white/70 bg-white/70 backdrop-blur">
-          <Icon className="size-5 text-[oklch(0.75_0.19_55)]" />
+        onClick={onOpen}
+        className="relative h-full w-full cursor-pointer transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+      >
+        {/* Front face */}
+        <div className="absolute inset-0 overflow-hidden rounded-[2rem] border border-glass-border bg-glass p-6 shadow-luxe backdrop-blur-xl [backface-visibility:hidden]">
+          <div
+            className="absolute inset-0 opacity-70"
+            style={{
+              background:
+                "radial-gradient(120% 80% at 20% 10%, oklch(1 0 0 / 0.9), transparent 55%), radial-gradient(80% 60% at 100% 100%, color-mix(in oklab, var(--ember) 30%, transparent), transparent 70%)",
+            }}
+          />
+          <div className="relative flex h-full flex-col justify-between">
+            <div className="grid size-12 place-items-center rounded-2xl border border-white/70 bg-white/70 backdrop-blur">
+              <Icon className="size-5 text-[oklch(0.75_0.19_55)]" />
+            </div>
+            <div>
+              <div className="text-display text-2xl leading-tight">{s.title}</div>
+              <div className="mt-2 text-xs text-muted-foreground line-clamp-2">{s.desc}</div>
+              <div className="mt-4 inline-flex items-center gap-1 text-xs text-foreground/80">
+                Open <ArrowUpRight className="size-3" />
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <div className="text-display text-2xl leading-tight">{s.title}</div>
-          <div className="mt-2 text-xs text-muted-foreground line-clamp-2">{s.desc}</div>
-          <div className="mt-4 inline-flex items-center gap-1 text-xs text-foreground/80">
-            Open <ArrowUpRight className="size-3" />
+
+        {/* Back face — banner image with icon in center */}
+        <div className="absolute inset-0 overflow-hidden rounded-[2rem] shadow-luxe [backface-visibility:hidden] [transform:rotateY(180deg)]">
+          <img
+            src={s.img}
+            alt={s.title}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+            <div className="grid size-16 place-items-center rounded-full bg-white/95 shadow-lg backdrop-blur">
+              <Icon className="size-7 text-[oklch(0.75_0.19_55)]" />
+            </div>
+            <div className="text-display text-lg text-white text-center px-4">{s.title}</div>
+            <div className="inline-flex items-center gap-1 text-xs font-medium text-[oklch(0.82_0.17_70)]">
+              View Details <ArrowUpRight className="size-3" />
+            </div>
           </div>
         </div>
       </div>
-    </motion.button>
+    </motion.div>
   );
 }
 
@@ -692,28 +715,149 @@ export function About() {
           </motion.div>
         </div>
 
-        <motion.div
-          style={{ scale }}
-          className="mt-24 aspect-[16/8] w-full overflow-hidden rounded-[2.5rem] shadow-luxe"
-        >
-          <div className="relative h-full w-full bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900">
-            <div
-              className="absolute inset-0 opacity-70"
-              style={{
-                background:
-                  "radial-gradient(60% 60% at 30% 30%, color-mix(in oklab, var(--ember) 60%, transparent), transparent 70%)",
-              }}
-            />
-            <div className="absolute inset-0 grid place-items-center text-white">
-              <div className="text-center">
-                <div className="text-[10px] uppercase tracking-[0.4em] text-white/60">The Studio</div>
-                <div className="mt-3 text-display text-[clamp(2rem,5vw,4rem)]">Cogito · Siliguri</div>
-              </div>
+        <div className="mt-24">
+          <Reveal>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[oklch(0.75_0.19_55)]/30 bg-[oklch(0.75_0.19_55)]/10 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-[oklch(0.75_0.19_55)]">
+              Our Ecosystem
             </div>
-          </div>
-        </motion.div>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h3 className="text-display text-[clamp(2rem,5vw,4rem)]">
+              An interconnected growth platform
+            </h3>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-4 max-w-xl text-base text-muted-foreground">
+              Discover our complete suite of integrated services designed to drive
+              measurable business growth across all channels.
+            </p>
+          </Reveal>
+
+          <EcosystemCards />
+        </div>
       </div>
     </section>
+  );
+}
+
+const ECOSYSTEM_CARDS = [
+  {
+    title: "Social Media Management",
+    desc: "Content creation, community engagement and strategic posting that grows your audience and builds brand loyalty.",
+    stat: "10M+",
+    statLabel: "Reach Generated",
+    icon: Megaphone,
+    img: bpWebsites,
+  },
+  {
+    title: "Brand Strategy & Identity",
+    desc: "Positioning, visual identity and brand systems that set you apart and make your brand unforgettable.",
+    stat: "200+",
+    statLabel: "Brands Built",
+    icon: Palette,
+    img: ecoSearch,
+  },
+  {
+    title: "Digital Presence",
+    desc: "Websites, SEO and digital ecosystems designed to establish authority and drive organic discovery.",
+    stat: "#1",
+    statLabel: "Rankings Achieved",
+    icon: Globe,
+    img: ecoAutomation,
+  },
+  {
+    title: "Lead Generation & Ads",
+    desc: "Performance marketing campaigns on Meta & Google engineered for maximum ROAS and qualified leads.",
+    stat: "3x",
+    statLabel: "Revenue Growth",
+    icon: Target,
+    img: bpOrganic,
+  },
+  {
+    title: "Content Production",
+    desc: "Photo, video and storytelling crafted to captivate your audience and elevate your brand across every platform.",
+    stat: "500+",
+    statLabel: "Projects Delivered",
+    icon: Video,
+    img: bpInfra,
+  },
+];
+
+function EcosystemCards() {
+  const [active, setActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setActive(mobile ? 0 : 2);
+    };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  return (
+    <div className="mt-12 flex flex-col gap-0 overflow-hidden rounded-[1.5rem] md:flex-row md:h-[460px]">
+      {ECOSYSTEM_CARDS.map((card, i) => {
+        const isActive = active === i;
+        const Icon = card.icon;
+        return (
+          <motion.div
+            key={card.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.08, duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+            onMouseEnter={() => setActive(i)}
+            onClick={() => setActive(i)}
+            className={`relative cursor-pointer overflow-hidden border-b border-white/10 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+              isActive
+                ? "h-[280px] md:h-auto md:flex-[4]"
+                : "h-[60px] md:h-auto md:flex-1"
+            }`}
+          >
+            {/* Background image */}
+            <img
+              src={card.img}
+              alt={card.title}
+              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ${isActive ? "scale-105" : "scale-100"}`}
+            />
+            {/* Dark overlay */}
+            <div className={`absolute inset-0 transition-all duration-700 ${isActive ? "bg-black/40" : "bg-black/60"}`} />
+
+            {/* Collapsed state — icon + horizontal text (mobile) / vertical text (desktop) */}
+            <div className={`absolute inset-0 flex items-center justify-center gap-3 md:flex-col md:gap-4 transition-all duration-500 ${isActive ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+              <Icon className="size-5 text-white/70" />
+              <div className="text-[12px] uppercase tracking-[0.2em] text-white/80 md:hidden">
+                {card.title}
+              </div>
+              <div className="hidden md:flex -rotate-180 items-center whitespace-nowrap text-[12px] uppercase tracking-[0.2em] text-white/80" style={{ writingMode: "vertical-rl" }}>
+                {card.title}
+              </div>
+            </div>
+
+            {/* Expanded state — content */}
+            <div className={`absolute inset-0 flex flex-col justify-end p-6 transition-all duration-700 md:p-10 ${isActive ? "opacity-100" : "opacity-0"}`}>
+              {/* Stat badge top-right */}
+              <div className="absolute right-4 top-4 rounded-xl bg-white px-3 py-2 text-center shadow-lg md:right-8 md:top-8 md:px-4 md:py-3">
+                <div className="text-display text-xl font-bold text-foreground md:text-2xl">{card.stat}</div>
+                <div className="text-[8px] uppercase tracking-widest text-[oklch(0.75_0.19_55)] md:text-[9px]">{card.statLabel}</div>
+              </div>
+
+              <h4 className="text-display text-xl text-white md:text-3xl">{card.title}</h4>
+              <p className="mt-2 max-w-md text-xs leading-relaxed text-white/70 md:mt-3 md:text-sm">
+                {card.desc}
+              </p>
+              <a href="#contact" className="mt-3 inline-flex items-center gap-2 text-xs font-medium text-[oklch(0.82_0.17_70)] transition-colors hover:text-white md:mt-5 md:text-sm">
+                Explore <ArrowUpRight className="size-3.5" />
+              </a>
+            </div>
+          </motion.div>
+        );
+      })}
+    </div>
   );
 }
 
@@ -726,14 +870,15 @@ const WORK = [
   { title: "Nova Cosmetics", tag: "E-commerce", tone: "from-pink-200 to-rose-400" },
   { title: "Kite Analytics", tag: "SaaS Web", tone: "from-blue-200 to-indigo-500" },
   { title: "Field Studio", tag: "Editorial", tone: "from-stone-200 to-stone-500" },
+  { title: "Zenith Hotels", tag: "Hospitality · Brand", tone: "from-amber-200 to-amber-500", isCTA: true },
 ];
 
 export function Portfolio() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-200%"]);
   return (
-    <section id="work" ref={ref} className="relative h-[400vh]">
+    <section id="work" ref={ref} className="relative h-[800vh]">
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
         <div className="mx-auto mb-10 flex w-full max-w-[1400px] items-end justify-between px-6">
           <div>
@@ -748,7 +893,7 @@ export function Portfolio() {
           {WORK.map((w, i) => (
             <WorkCard key={w.title} w={w} i={i} />
           ))}
-          <div className="min-w-[30vw]" />
+          <div className="min-w-[4vw]" />
         </motion.div>
       </div>
     </section>
@@ -760,6 +905,101 @@ function WorkCard({ w, i }: { w: any; i: number }) {
   const rx = useMotionValue(0), ry = useMotionValue(0);
   const srx = useSpring(rx, { stiffness: 200, damping: 20 });
   const sry = useSpring(ry, { stiffness: 200, damping: 20 });
+
+  // CTA Card Design
+  if (w.isCTA) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+        className="relative flex h-[70vh] w-[62vw] shrink-0 flex-col items-center justify-center overflow-hidden rounded-[2.5rem] shadow-luxe md:w-[46vw]"
+        style={{
+          background: "linear-gradient(135deg, oklch(0.75 0.19 55) 0%, oklch(0.82 0.17 70) 100%)",
+        }}
+      >
+        {/* Animated gradient overlay */}
+        <motion.div
+          className="absolute inset-0 opacity-30"
+          animate={{
+            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          style={{
+            backgroundImage: "radial-gradient(circle at 30% 20%, oklch(1 0 0 / 0.5), transparent 50%), radial-gradient(circle at 80% 80%, oklch(1 0 0 / 0.4), transparent 50%)",
+            backgroundSize: "200% 200%",
+          }}
+        />
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              "linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+        <div className="relative flex flex-col items-center text-center px-8">
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            whileInView={{ scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+            className="mb-6 grid size-24 place-items-center rounded-full bg-white/25 backdrop-blur"
+          >
+            <ArrowUpRight className="size-10 text-white" />
+          </motion.div>
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+            className="text-display text-[clamp(2rem,4.5vw,4rem)] text-white"
+          >
+            Let's build yours next.
+          </motion.h3>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+            className="mt-4 max-w-md text-base text-white/80"
+          >
+            Ready to see your brand in this lineup? Explore our services or start a conversation.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-4"
+          >
+            <a
+              href="/services"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-medium text-foreground shadow-xl transition-all hover:scale-105 hover:shadow-2xl"
+            >
+              Explore Services
+              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:translate-y-[-1px]" />
+            </a>
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 rounded-full border-2 border-white/50 bg-white/15 px-7 py-4 text-sm font-medium text-white backdrop-blur transition-all hover:scale-105 hover:bg-white/25 hover:border-white/70"
+            >
+              Start a Project
+              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:translate-y-[-1px]" />
+            </a>
+          </motion.div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Normal Work Card Design
   return (
     <motion.div
       ref={ref}
@@ -929,17 +1169,14 @@ export function Testimonials() {
 /* ══════════════════════════════════════════════════════════════ */
 /*  BRANDS — logo wall on dark gradient                            */
 /* ══════════════════════════════════════════════════════════════ */
-const brandLogos = import.meta.glob("@/assets/brands/*.asset.json", {
+const brandLogos = import.meta.glob("@/assets/brands/*.webp", {
   eager: true,
-}) as Record<string, { default: { url: string; original_filename: string } }>;
+}) as Record<string, { default: string }>;
 
 export function Brands() {
   const logos = Object.values(brandLogos).map((m) => ({
-    url: m.default.url,
-    name: m.default.original_filename
-      .replace(/\.webp$/i, "")
-      .replace(/[_-]+/g, " ")
-      .replace(/\b\w/g, (c) => c.toUpperCase()),
+    url: m.default,
+    name: "Brand Partner",
   }));
 
   return (
@@ -996,7 +1233,7 @@ export function Brands() {
               </p>
             </Reveal>
 
-            <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            <div className="mt-16 grid grid-cols-2 gap-3 overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
               {logos.map((logo, i) => (
                 <motion.div
                   key={logo.url}
@@ -1005,16 +1242,16 @@ export function Brands() {
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{
                     duration: 0.7,
-                    delay: (i % 5) * 0.05,
+                    delay: (i % 6) * 0.05,
                     ease: [0.19, 1, 0.22, 1],
                   }}
-                  className="group relative flex aspect-[4/3] items-center justify-center bg-white p-8 transition-all duration-500 hover:bg-white/95 md:p-10"
+                  className="group relative flex aspect-square items-center justify-center bg-white p-4 transition-all duration-500 hover:bg-transparent"
                 >
                   <img
                     src={logo.url}
                     alt={logo.name}
                     loading="lazy"
-                    className="max-h-24 w-auto max-w-[90%] object-contain transition-transform duration-500 group-hover:scale-105 md:max-h-28"
+                    className="max-h-36 w-auto max-w-full object-contain transition-transform duration-500 group-hover:scale-110"
                   />
                 </motion.div>
               ))}
@@ -1116,9 +1353,18 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-4">
             {[Instagram, Facebook, Linkedin, Youtube].map((I, i) => (
-              <a key={i} href="#" className="grid size-9 place-items-center rounded-full border border-border/60 bg-white/70 backdrop-blur transition-colors hover:text-[oklch(0.75_0.19_55)]">
-                <I className="size-4" />
-              </a>
+              <motion.a
+                key={i}
+                href="#"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                whileHover={{ scale: 1.15, rotate: [0, -10, 10, 0] }}
+                className="grid size-11 place-items-center rounded-full border border-border/60 bg-white/70 backdrop-blur transition-colors hover:text-[oklch(0.75_0.19_55)] hover:bg-white hover:shadow-lg"
+              >
+                <I className="size-5" />
+              </motion.a>
             ))}
           </div>
           <div className="flex items-center gap-4">

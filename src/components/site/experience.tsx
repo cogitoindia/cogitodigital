@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "motion/react";
-import logoAsset from "@/assets/cogito-logo.png.asset.json";
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import logoAsset from "@/assets/Cogito_Digital_Logo.webp";
 
 /* ————————————————————————————————————————————————— */
 /*  Smooth scroll (Lenis)                              */
@@ -93,6 +95,7 @@ export function GlowCursor() {
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [pathname, setPathname] = useState<string>("/");
   useEffect(() => {
     setPathname(window.location.pathname);
@@ -128,19 +131,21 @@ export function Nav() {
       className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4"
     >
       <div
-        className={`glass-panel flex w-full max-w-6xl items-center justify-between rounded-full px-5 py-3 transition-all ${
-          scrolled ? "shadow-luxe" : ""
+        className={`flex w-full max-w-6xl items-center justify-between rounded-full px-5 py-3 transition-all bg-white shadow-lg overflow-visible ${
+          scrolled ? "shadow-xl" : ""
         }`}
       >
         <a href="/" className="flex items-center">
           <img
-            src={logoAsset.url}
+            src={logoAsset}
             alt="Cogito Digital"
             className="h-7 w-auto object-contain"
             width="240"
             height="56"
           />
         </a>
+        
+        {/* Desktop Navigation */}
         <nav className="hidden items-center gap-1 md:flex">
           <div
             className="relative"
@@ -201,13 +206,80 @@ export function Nav() {
             </a>
           ))}
         </nav>
+        
+        {/* Desktop CTA */}
         <a
           href={homeAnchor("#contact")}
-          className="group inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
+          className="hidden group md:inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
         >
           Start Project
           <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
         </a>
+
+        {/* Mobile Menu */}
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          <SheetTrigger asChild className="md:hidden">
+            <button className="rounded-full p-2 hover:bg-muted">
+              <Menu className="size-5" />
+            </button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[300px] sm:w-[350px] overflow-y-auto">
+            <div className="flex flex-col gap-6 mt-8">
+              <div>
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3">Services</h3>
+                <div className="flex flex-col gap-2">
+                  {serviceLinks.map((s, i) => (
+                    <a
+                      key={s.slug}
+                      href={`/services#${s.slug}`}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-muted"
+                    >
+                      <span>
+                        <span className="mr-2 font-mono text-[10px] text-muted-foreground">
+                          0{i + 1}
+                        </span>
+                        {s.label}
+                      </span>
+                      <span className="text-[10px] text-muted-foreground">→</span>
+                    </a>
+                  ))}
+                  <a
+                    href="/services"
+                    onClick={() => setMobileOpen(false)}
+                    className="mt-1 flex items-center justify-between rounded-xl bg-foreground px-3 py-2.5 text-sm font-medium text-background"
+                  >
+                    All services
+                    <span>→</span>
+                  </a>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3">Navigation</h3>
+                <div className="flex flex-col gap-2">
+                  {items.map((i) => (
+                    <a
+                      key={i.href}
+                      href={i.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="rounded-xl px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-muted"
+                    >
+                      {i.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <a
+                href={homeAnchor("#contact")}
+                onClick={() => setMobileOpen(false)}
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-4 py-3 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
+              >
+                Start Project
+                <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+              </a>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </motion.header>
   );
