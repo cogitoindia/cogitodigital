@@ -90,11 +90,10 @@ export function GlowCursor() {
 }
 
 /* ------------------------------------------------- */
-/*  Navigation                                          */
+/*  Simple Navigation                                          */
 /* ------------------------------------------------- */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pathname, setPathname] = useState<string>("/");
   useEffect(() => {
@@ -109,18 +108,11 @@ export function Nav() {
   const homeAnchor = (h: string) => (isServices ? `/${h}` : h);
 
   const items = [
+    { label: "Services", href: "/services" },
     { label: "Work", href: homeAnchor("#work") },
     { label: "Process", href: homeAnchor("#process") },
     { label: "About", href: homeAnchor("#about") },
     { label: "Contact", href: homeAnchor("#contact") },
-  ];
-
-  const serviceLinks = [
-    { label: "Brand Identity", slug: "branding" },
-    { label: "Web Design & Dev", slug: "web" },
-    { label: "SEO", slug: "seo" },
-    { label: "Performance Marketing", slug: "performance" },
-    { label: "Content & Social", slug: "content" },
   ];
 
   return (
@@ -128,79 +120,30 @@ export function Nav() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.2, duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
-      className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4"
+      className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 sm:px-4 pt-4"
     >
       <div
-        className={`flex w-full max-w-6xl items-center justify-between rounded-full px-5 py-3 transition-all bg-white shadow-lg overflow-visible ${
+        className={`flex w-full max-w-6xl items-center justify-between rounded-full px-3 sm:px-5 py-3 transition-all bg-white shadow-lg overflow-x-hidden ${
           scrolled ? "shadow-xl" : ""
         }`}
       >
-        <a href="/" className="flex items-center">
+        <a href="/" className="flex items-center shrink-0">
           <img
             src={logoAsset}
             alt="Cogito Digital"
-            className="h-7 w-auto object-contain"
+            className="h-6 sm:h-7 w-auto object-contain max-w-[120px] sm:max-w-none"
             width="240"
             height="56"
           />
         </a>
         
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-1 md:flex">
-          <div
-            className="relative"
-            onMouseEnter={() => setServicesOpen(true)}
-            onMouseLeave={() => setServicesOpen(false)}
-          >
-            <a
-              href="/services"
-              className="inline-flex items-center gap-1 rounded-full px-4 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Services
-              <svg className="size-3 opacity-60" viewBox="0 0 12 12" fill="none">
-                <path d="M3 4.5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-            <AnimatePresence>
-              {servicesOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.22, ease: [0.19, 1, 0.22, 1] }}
-                  className="absolute left-1/2 top-full z-50 mt-2 w-72 -translate-x-1/2 rounded-2xl border border-glass-border bg-white/90 p-2 shadow-luxe backdrop-blur-xl"
-                >
-                  {serviceLinks.map((s, i) => (
-                    <a
-                      key={s.slug}
-                      href={`/services#${s.slug}`}
-                      className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-[oklch(0.75_0.19_55_/_0.08)] hover:text-foreground"
-                    >
-                      <span>
-                        <span className="mr-2 font-mono text-[10px] text-muted-foreground">
-                          0{i + 1}
-                        </span>
-                        {s.label}
-                      </span>
-                      <span className="text-[10px] text-muted-foreground">→</span>
-                    </a>
-                  ))}
-                  <a
-                    href="/services"
-                    className="mt-1 flex items-center justify-between rounded-xl bg-foreground px-3 py-2.5 text-sm font-medium text-background"
-                  >
-                    All services
-                    <span>→</span>
-                  </a>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+        <nav className="hidden items-center gap-1 md:flex shrink-0">
           {items.map((i) => (
             <a
               key={i.href}
               href={i.href}
-              className="relative rounded-full px-4 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="relative rounded-full px-3 sm:px-4 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground whitespace-nowrap"
             >
               {i.label}
             </a>
@@ -210,7 +153,7 @@ export function Nav() {
         {/* Desktop CTA */}
         <a
           href={homeAnchor("#contact")}
-          className="hidden group md:inline-flex items-center gap-2 rounded-[5px] bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
+          className="hidden group md:inline-flex items-center gap-2 rounded-[5px] bg-foreground px-3 sm:px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.03] shrink-0 whitespace-nowrap"
         >
           Start Project
           <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
@@ -224,51 +167,17 @@ export function Nav() {
             </button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[350px] overflow-y-auto">
-            <div className="flex flex-col gap-6 mt-8">
-              <div>
-                <h3 className="text-sm font-semibold text-muted-foreground mb-3">Services</h3>
-                <div className="flex flex-col gap-2">
-                  {serviceLinks.map((s, i) => (
-                    <a
-                      key={s.slug}
-                      href={`/services#${s.slug}`}
-                      onClick={() => setMobileOpen(false)}
-                      className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-muted"
-                    >
-                      <span>
-                        <span className="mr-2 font-mono text-[10px] text-muted-foreground">
-                          0{i + 1}
-                        </span>
-                        {s.label}
-                      </span>
-                      <span className="text-[10px] text-muted-foreground">→</span>
-                    </a>
-                  ))}
-                  <a
-                    href="/services"
-                    onClick={() => setMobileOpen(false)}
-                    className="mt-1 flex items-center justify-between rounded-xl bg-foreground px-3 py-2.5 text-sm font-medium text-background"
-                  >
-                    All services
-                    <span>→</span>
-                  </a>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-muted-foreground mb-3">Navigation</h3>
-                <div className="flex flex-col gap-2">
-                  {items.map((i) => (
-                    <a
-                      key={i.href}
-                      href={i.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="rounded-xl px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-muted"
-                    >
-                      {i.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
+            <div className="flex flex-col gap-4 mt-8">
+              {items.map((i) => (
+                <a
+                  key={i.href}
+                  href={i.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-xl px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-muted"
+                >
+                  {i.label}
+                </a>
+              ))}
               <a
                 href={homeAnchor("#contact")}
                 onClick={() => setMobileOpen(false)}

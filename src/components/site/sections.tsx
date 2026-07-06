@@ -881,8 +881,8 @@ export function Portfolio() {
   };
 
   return (
-    <section id="work" ref={ref} className="relative h-[800vh]">
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+    <section id="work" ref={ref} className="relative md:h-[800vh]">
+      <div className="flex h-screen flex-col justify-center overflow-hidden md:sticky md:top-0">
         <div className="mx-auto mb-10 flex w-full max-w-[1400px] items-end justify-between px-6">
           <div>
             <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Selected Work</div>
@@ -892,7 +892,14 @@ export function Portfolio() {
           </div>
           <div className="hidden text-xs text-muted-foreground md:block">Scroll →</div>
         </div>
-        <motion.div style={{ x }} className="flex gap-8 pl-6">
+        {/* Mobile: horizontal touch scroll, Desktop: sticky scroll */}
+        <div className="flex gap-6 overflow-x-auto pl-6 snap-x snap-mandatory scrollbar-hide md:hidden">
+          {WORK.map((w, i) => (
+            <WorkCard key={w.title} w={w} i={i} onOpenLightbox={openLightbox} />
+          ))}
+          <div className="min-w-[4vw] shrink-0" />
+        </div>
+        <motion.div style={{ x }} className="hidden gap-8 pl-6 md:flex">
           {WORK.map((w, i) => (
             <WorkCard key={w.title} w={w} i={i} onOpenLightbox={openLightbox} />
           ))}
@@ -923,7 +930,7 @@ function WorkCard({ w, i, onOpenLightbox }: { w: any; i: number; onOpenLightbox:
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-        className="relative flex h-[70vh] w-[62vw] shrink-0 flex-col items-center justify-center overflow-hidden rounded-[5px] shadow-luxe md:w-[46vw]"
+        className="relative flex h-[70vh] w-[85vw] shrink-0 flex-col items-center justify-center overflow-hidden rounded-[5px] shadow-luxe snap-center md:w-[46vw]"
         style={{
           backgroundImage: `url(${csSaas1})`,
           backgroundSize: "cover",
@@ -1015,7 +1022,7 @@ function WorkCard({ w, i, onOpenLightbox }: { w: any; i: number; onOpenLightbox:
       onMouseLeave={() => { rx.set(0); ry.set(0); }}
       onClick={() => w.images && onOpenLightbox(w.images)}
       style={{ rotateX: srx, rotateY: sry, transformPerspective: 1200 }}
-      className="relative h-[70vh] w-[62vw] shrink-0 overflow-hidden rounded-[5px] shadow-luxe md:w-[46vw] cursor-pointer"
+      className="relative h-[70vh] w-[85vw] shrink-0 overflow-hidden rounded-[5px] shadow-luxe snap-center md:w-[46vw] cursor-pointer"
       data-cursor="hover"
     >
       {/* Use ImageSlider for Luxury Living Branding card */}
@@ -1097,120 +1104,171 @@ export function Process() {
   };
 
   return (
-    <section id="process" ref={sectionRef} className="relative" style={{ height: `${(total + 1) * 100}vh` }}>
-      <div className="sticky top-0 flex h-screen flex-col">
-        {/* Header */}
-        <div className="mx-auto w-full max-w-[1400px] px-6 pt-24 pb-10 md:pt-32 md:pb-14">
-          <div className="flex flex-col items-center text-center">
-            <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-[oklch(0.75_0.19_55)]">Comprehensive Process</div>
-            <h2 className="text-display text-[clamp(2.2rem,5.5vw,4.5rem)] leading-[1.15]">
-              One-stop total solution to your<br />
-              <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>
-                digital growth needs.
-              </span>
-            </h2>
-            <p className="mt-5 max-w-2xl text-sm text-muted-foreground md:text-base leading-relaxed">
-              Our goal is to make sure every project meets its intended Function, Budget,
-              Design, and Quality requirements.
-            </p>
-          </div>
+    <section id="process" ref={sectionRef} className="relative">
+      {/* Mobile: Card layout */}
+      <div className="px-6 py-16 md:hidden bg-[oklch(0.13_0.01_60)]">
+        <div className="mb-8 text-center">
+          <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-[oklch(0.75_0.19_55)]">Comprehensive Process</div>
+          <h2 className="text-display text-[clamp(2rem,5vw,3rem)] leading-[1.15] text-white">
+            One-stop total solution to your<br />
+            <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>
+              digital growth needs.
+            </span>
+          </h2>
+          <p className="mt-5 text-sm text-white/60 leading-relaxed">
+            Our goal is to make sure every project meets its intended Function, Budget,
+            Design, and Quality requirements.
+          </p>
         </div>
-
-        {/* Card area */}
-        <div className="relative flex-1 overflow-hidden bg-[oklch(0.13_0.01_60)] border-t border-white/5">
-          {/* Subtle amber gradient glow bottom-left */}
-          <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[oklch(0.45_0.18_55)] opacity-15 blur-[100px]" />
-
-          <div className="mx-auto flex h-full max-w-[1400px] items-center px-6">
-            <div className="grid w-full gap-8 md:grid-cols-2 md:gap-16 items-center">
-              {/* Left: Icon */}
-              <div className="flex flex-col items-center justify-center">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-                    className="grid h-32 w-32 place-items-center rounded-3xl bg-gradient-to-br from-[oklch(0.75_0.19_55)] to-[oklch(0.60_0.22_40)] shadow-2xl md:h-44 md:w-44"
-                  >
-                    {(() => {
-                      const Icon = STEPS[active].icon;
-                      return <Icon className="size-14 text-black md:size-20" strokeWidth={1.5} />;
-                    })()}
-                  </motion.div>
-                </AnimatePresence>
+        <div className="flex flex-col gap-5">
+          {STEPS.map((step, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg backdrop-blur"
+            >
+              <div className="flex items-start gap-4">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[oklch(0.75_0.19_55)] to-[oklch(0.60_0.22_40)] shadow-lg">
+                  {(() => {
+                    const Icon = step.icon;
+                    return <Icon className="size-6 text-black" strokeWidth={1.5} />;
+                  })()}
+                </div>
+                <div className="flex-1">
+                  <div className="mb-1 font-mono text-xs text-[oklch(0.75_0.19_55)]">{step.n}</div>
+                  <h3 className="text-display text-xl text-white">{step.t}</h3>
+                  <p className="mt-1 text-sm text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>
+                    {step.sub}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-white/60">
+                    {step.d}
+                  </p>
+                </div>
               </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
-              {/* Right: Content */}
-              <div className="flex flex-col justify-center">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -30 }}
-                    transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-                  >
-                    <h3 className="text-display text-4xl text-white md:text-6xl">
-                      {STEPS[active].t}
-                    </h3>
-                    <p className="mt-3 text-base text-[oklch(0.75_0.19_55)] md:text-lg" style={{ fontFamily: "'General Sans'" }}>
-                      {STEPS[active].sub}
-                    </p>
-                    <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60 md:text-base">
-                      {STEPS[active].d}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+      {/* Desktop: Sticky scroll layout */}
+      <div className="hidden md:block" style={{ height: `${(total + 1) * 100}vh` }}>
+        <div className="sticky top-0 flex h-screen flex-col">
+          {/* Header */}
+          <div className="mx-auto w-full max-w-[1400px] px-6 pt-24 pb-10 md:pt-32 md:pb-14">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-[oklch(0.75_0.19_55)]">Comprehensive Process</div>
+              <h2 className="text-display text-[clamp(2.2rem,5.5vw,4.5rem)] leading-[1.15]">
+                One-stop total solution to your<br />
+                <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>
+                  digital growth needs.
+                </span>
+              </h2>
+              <p className="mt-5 max-w-2xl text-sm text-muted-foreground md:text-base leading-relaxed">
+                Our goal is to make sure every project meets its intended Function, Budget,
+                Design, and Quality requirements.
+              </p>
             </div>
           </div>
 
-          {/* Step counter - bottom left */}
-          <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
-            <span className="font-mono text-2xl text-[oklch(0.75_0.19_55)] md:text-3xl">
-              {STEPS[active].n}
-            </span>
-            <span className="font-mono text-2xl text-white/30 md:text-3xl">
-              /{String(total).padStart(2, "0")}
-            </span>
-          </div>
+          {/* Card area */}
+          <div className="relative flex-1 overflow-hidden bg-[oklch(0.13_0.01_60)] border-t border-white/5">
+            {/* Subtle amber gradient glow bottom-left */}
+            <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[oklch(0.45_0.18_55)] opacity-15 blur-[100px]" />
 
-          {/* Navigation arrows - bottom right */}
-          <div className="absolute bottom-6 right-6 flex gap-2 md:bottom-10 md:right-10">
-            <button
-              onClick={() => scrollToStep(active - 1)}
-              disabled={active === 0}
-              className="grid size-10 place-items-center rounded-full border border-white/20 text-white/60 transition-all hover:border-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed md:size-12"
-              aria-label="Previous step"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="size-4 md:size-5"><path d="m18 15-6-6-6 6" /></svg>
-            </button>
-            <button
-              onClick={() => scrollToStep(active + 1)}
-              disabled={active === total - 1}
-              className="grid size-10 place-items-center rounded-full border border-white/20 text-white/60 transition-all hover:border-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed md:size-12"
-              aria-label="Next step"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="size-4 md:size-5"><path d="m6 9 6 6 6-6" /></svg>
-            </button>
-          </div>
+            <div className="mx-auto flex h-full max-w-[1400px] items-center px-6">
+              <div className="grid w-full gap-8 md:grid-cols-2 md:gap-16 items-center">
+                {/* Left: Icon */}
+                <div className="flex flex-col items-center justify-center">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={active}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                      className="grid h-32 w-32 place-items-center rounded-3xl bg-gradient-to-br from-[oklch(0.75_0.19_55)] to-[oklch(0.60_0.22_40)] shadow-2xl md:h-44 md:w-44"
+                    >
+                      {(() => {
+                        const Icon = STEPS[active].icon;
+                        return <Icon className="size-14 text-black md:size-20" strokeWidth={1.5} />;
+                      })()}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
 
-          {/* Progress dots */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 md:bottom-10">
-            {STEPS.map((_, i) => (
+                {/* Right: Content */}
+                <div className="flex flex-col justify-center">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={active}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -30 }}
+                      transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                    >
+                      <h3 className="text-display text-4xl text-white md:text-6xl">
+                        {STEPS[active].t}
+                      </h3>
+                      <p className="mt-3 text-base text-[oklch(0.75_0.19_55)] md:text-lg" style={{ fontFamily: "'General Sans'" }}>
+                        {STEPS[active].sub}
+                      </p>
+                      <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60 md:text-base">
+                        {STEPS[active].d}
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
+
+            {/* Step counter - bottom left */}
+            <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
+              <span className="font-mono text-2xl text-[oklch(0.75_0.19_55)] md:text-3xl">
+                {STEPS[active].n}
+              </span>
+              <span className="font-mono text-2xl text-white/30 md:text-3xl">
+                /{String(total).padStart(2, "0")}
+              </span>
+            </div>
+
+            {/* Navigation arrows - bottom right */}
+            <div className="absolute bottom-6 right-6 flex gap-2 md:bottom-10 md:right-10">
               <button
-                key={i}
-                onClick={() => scrollToStep(i)}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  i === active
-                    ? "w-8 bg-[oklch(0.75_0.19_55)]"
-                    : "w-1.5 bg-white/20 hover:bg-white/40"
-                }`}
-                aria-label={`Go to step ${i + 1}`}
-              />
-            ))}
+                onClick={() => scrollToStep(active - 1)}
+                disabled={active === 0}
+                className="grid size-10 place-items-center rounded-full border border-white/20 text-white/60 transition-all hover:border-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed md:size-12"
+                aria-label="Previous step"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="size-4 md:size-5"><path d="m18 15-6-6-6 6" /></svg>
+              </button>
+              <button
+                onClick={() => scrollToStep(active + 1)}
+                disabled={active === total - 1}
+                className="grid size-10 place-items-center rounded-full border border-white/20 text-white/60 transition-all hover:border-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed md:size-12"
+                aria-label="Next step"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="size-4 md:size-5"><path d="m6 9 6 6 6-6" /></svg>
+              </button>
+            </div>
+
+            {/* Progress dots */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 md:bottom-10">
+              {STEPS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => scrollToStep(i)}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    i === active
+                      ? "w-8 bg-[oklch(0.75_0.19_55)]"
+                      : "w-1.5 bg-white/20 hover:bg-white/40"
+                  }`}
+                  aria-label={`Go to step ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
