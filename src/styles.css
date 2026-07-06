@@ -169,16 +169,16 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-  }
-  @media (max-width: 768px) {
-    body {
-      overflow: hidden;
-    }
+    overflow-x: clip;
   }
   ::selection { background: var(--ember); color: white; }
   h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.035em; }
