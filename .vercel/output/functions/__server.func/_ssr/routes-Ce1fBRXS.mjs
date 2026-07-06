@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { _ as Testimonials, d as Process, g as Team, i as Contact, l as Nav, m as SmoothScroll, n as AmbientBackground, o as Footer, p as Services, r as Brands, s as Hero, t as About, u as Portfolio } from "./sections-axuzLCg4.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-Bp0arKgo.js
+import { _ as Testimonials, d as Process, g as Team, i as Contact, l as Nav, m as SmoothScroll, n as AmbientBackground, o as Footer, p as Services, r as Brands, s as Hero, t as About, u as Portfolio } from "./sections-BZW38pHv.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-Ce1fBRXS.js
 var import_jsx_runtime = require_jsx_runtime();
 function Index() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SmoothScroll, { children: [

@@ -4,11 +4,11 @@ import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react
 import { a as DialogOverlay, c as DialogTrigger, i as DialogDescription, n as DialogClose, o as DialogPortal, r as DialogContent, s as DialogTitle, t as Dialog } from "../_libs/@radix-ui/react-dialog+[...].mjs";
 import { i as useScroll, n as useTransform, o as AnimatePresence, r as useMotionValue, t as useSpring } from "../_libs/framer-motion.mjs";
 import { t as motion } from "../_libs/motion.mjs";
-import { C as Facebook, D as ChevronLeft, E as ChevronRight, M as ArrowUpRight, S as Globe, T as Compass, _ as MapPin, c as Star, f as Play, g as Megaphone, h as Menu, i as Video, l as Sparkles, m as Palette, n as Youtube, o as TrendingUp, p as Phone, r as X, s as Target, u as Search, v as Mail, w as Eye, x as Instagram, y as Linkedin } from "../_libs/lucide-react.mjs";
+import { C as Facebook, D as ChevronLeft, E as ChevronRight, M as ArrowUpRight, S as Globe, T as Compass, _ as MapPin, c as Star, f as Play, g as Megaphone, h as Menu, i as Video, k as ChartLine, l as Sparkles, m as Palette, n as Youtube, o as TrendingUp, p as Phone, r as X, s as Target, u as Search, v as Mail, w as Eye, x as Instagram, y as Linkedin } from "../_libs/lucide-react.mjs";
 import { n as clsx, t as cva } from "../_libs/class-variance-authority+clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
 import { i as Program, n as Mesh, r as Renderer, t as Triangle } from "../_libs/ogl.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/sections-axuzLCg4.js
+//#region node_modules/.nitro/vite/services/ssr/assets/sections-BZW38pHv.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var __defProp = Object.defineProperty;
@@ -2709,88 +2709,250 @@ var STEPS = [
 	{
 		n: "01",
 		t: "Discover",
-		d: "Immersion, interviews and audits - we learn your business inside out."
+		sub: "Deep-diving into your world to uncover every opportunity.",
+		d: "Immersion, interviews and audits — we learn your business inside out.",
+		icon: Search
 	},
 	{
 		n: "02",
 		t: "Strategy",
-		d: "Positioning, messaging and a roadmap tied to real outcomes."
+		sub: "Charting the course with clarity and precision.",
+		d: "Positioning, messaging and a roadmap tied to real outcomes.",
+		icon: Compass
 	},
 	{
 		n: "03",
 		t: "Design",
-		d: "Brand and product design that feels intentional, not decorative."
+		sub: "Bringing vision to life through seamless design and build.",
+		d: "Brand and product design that feels intentional, not decorative.",
+		icon: Palette
 	},
 	{
 		n: "04",
 		t: "Develop",
-		d: "Editorial, motion-driven builds engineered for performance."
+		sub: "Engineering experiences that perform flawlessly.",
+		d: "Editorial, motion-driven builds engineered for performance.",
+		icon: Globe
 	},
 	{
 		n: "05",
 		t: "Launch",
-		d: "A launch moment - narrative, assets, campaigns, PR."
+		sub: "Making your debut unforgettable across every channel.",
+		d: "A launch moment — narrative, assets, campaigns, PR.",
+		icon: Megaphone
 	},
 	{
 		n: "06",
 		t: "Scale",
-		d: "SEO, ads and content - compounding growth month over month."
+		sub: "Compounding growth that never stops.",
+		d: "SEO, ads and content — compounding growth month over month.",
+		icon: ChartLine
 	}
 ];
 function Process() {
+	const sectionRef = (0, import_react.useRef)(null);
+	const { scrollYProgress } = useScroll({
+		target: sectionRef,
+		offset: ["start start", "end end"]
+	});
+	const [active, setActive] = (0, import_react.useState)(0);
+	const total = STEPS.length;
+	(0, import_react.useEffect)(() => {
+		return scrollYProgress.on("change", (v) => {
+			const idx = Math.min(Math.floor(v * total), total - 1);
+			setActive(idx);
+		});
+	}, [scrollYProgress, total]);
+	const scrollToStep = (idx) => {
+		if (!sectionRef.current || idx < 0 || idx >= total) return;
+		const rect = sectionRef.current.getBoundingClientRect();
+		const sectionTop = window.scrollY + rect.top;
+		const sectionHeight = rect.height;
+		const stepOffset = idx / total * sectionHeight;
+		window.scrollTo({
+			top: sectionTop + stepOffset + 1,
+			behavior: "smooth"
+		});
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "process",
-		className: "relative py-32",
+		ref: sectionRef,
+		className: "relative",
+		style: { height: `${(total + 1) * 100}vh` },
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mx-auto max-w-[1400px] px-6",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "mb-16 grid gap-4 md:grid-cols-2 md:items-end",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground",
-					children: "Process"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
-					className: "text-display text-[clamp(2.5rem,6vw,5.5rem)]",
+			className: "sticky top-0 flex h-screen flex-col",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mx-auto w-full max-w-[1400px] px-6 pt-24 pb-10 md:pt-32 md:pb-14",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-col items-center text-center",
 					children: [
-						"Six chapters. ",
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "italic text-[oklch(0.75_0.19_55)]",
-							style: { fontFamily: "'General Sans'" },
-							children: "One narrative."
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "mb-4 text-[11px] uppercase tracking-[0.3em] text-[oklch(0.75_0.19_55)]",
+							children: "Comprehensive Process"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
+							className: "text-display text-[clamp(2.2rem,5.5vw,4.5rem)] leading-[1.15]",
+							children: [
+								"One-stop total solution to your",
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "italic text-[oklch(0.75_0.19_55)]",
+									style: { fontFamily: "'General Sans'" },
+									children: "digital growth needs."
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-5 max-w-2xl text-sm text-muted-foreground md:text-base leading-relaxed",
+							children: "Our goal is to make sure every project meets its intended Function, Budget, Design, and Quality requirements."
 						})
 					]
-				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-muted-foreground",
-					children: "A process that keeps taste and craft at the center - from the first conversation to the tenth quarter of growth."
-				}) })]
+				})
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute left-[calc(2rem+1px)] top-0 h-full w-px bg-border md:left-1/2" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "space-y-16",
-					children: STEPS.map((s, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
-						delay: i * .05,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: `relative grid gap-6 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:col-start-2" : ""}`,
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "relative pl-16 md:pl-0 md:pr-16 md:text-right",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "absolute left-0 top-2 grid size-14 place-items-center rounded-full border border-glass-border bg-glass text-xs font-mono shadow-luxe backdrop-blur-xl md:left-1/2 md:-translate-x-1/2",
-										children: s.n
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "text-display text-4xl md:text-5xl",
-										children: s.t
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										className: "mt-3 max-w-sm text-sm text-muted-foreground md:ml-auto",
-										children: s.d
-									})
-								]
-							})
+				className: "relative flex-1 overflow-hidden bg-[oklch(0.13_0.01_60)] border-t border-white/5",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[oklch(0.45_0.18_55)] opacity-15 blur-[100px]" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mx-auto flex h-full max-w-[1400px] items-center px-6",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "grid w-full gap-8 md:grid-cols-2 md:gap-16 items-center",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "flex flex-col items-center justify-center",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatePresence, {
+									mode: "wait",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+										initial: {
+											opacity: 0,
+											scale: .8
+										},
+										animate: {
+											opacity: 1,
+											scale: 1
+										},
+										exit: {
+											opacity: 0,
+											scale: .8
+										},
+										transition: {
+											duration: .5,
+											ease: [
+												.19,
+												1,
+												.22,
+												1
+											]
+										},
+										className: "grid h-32 w-32 place-items-center rounded-3xl bg-gradient-to-br from-[oklch(0.75_0.19_55)] to-[oklch(0.60_0.22_40)] shadow-2xl md:h-44 md:w-44",
+										children: (() => {
+											const Icon = STEPS[active].icon;
+											return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
+												className: "size-14 text-black md:size-20",
+												strokeWidth: 1.5
+											});
+										})()
+									}, active)
+								})
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "flex flex-col justify-center",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatePresence, {
+									mode: "wait",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+										initial: {
+											opacity: 0,
+											y: 30
+										},
+										animate: {
+											opacity: 1,
+											y: 0
+										},
+										exit: {
+											opacity: 0,
+											y: -30
+										},
+										transition: {
+											duration: .5,
+											ease: [
+												.19,
+												1,
+												.22,
+												1
+											]
+										},
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+												className: "text-display text-4xl text-white md:text-6xl",
+												children: STEPS[active].t
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+												className: "mt-3 text-base text-[oklch(0.75_0.19_55)] md:text-lg",
+												style: { fontFamily: "'General Sans'" },
+												children: STEPS[active].sub
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+												className: "mt-4 max-w-md text-sm leading-relaxed text-white/60 md:text-base",
+												children: STEPS[active].d
+											})
+										]
+									}, active)
+								})
+							})]
 						})
-					}, s.n))
-				})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "absolute bottom-6 left-6 md:bottom-10 md:left-10",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "font-mono text-2xl text-[oklch(0.75_0.19_55)] md:text-3xl",
+							children: STEPS[active].n
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "font-mono text-2xl text-white/30 md:text-3xl",
+							children: ["/", String(total).padStart(2, "0")]
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "absolute bottom-6 right-6 flex gap-2 md:bottom-10 md:right-10",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => scrollToStep(active - 1),
+							disabled: active === 0,
+							className: "grid size-10 place-items-center rounded-full border border-white/20 text-white/60 transition-all hover:border-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed md:size-12",
+							"aria-label": "Previous step",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
+								xmlns: "http://www.w3.org/2000/svg",
+								viewBox: "0 0 24 24",
+								fill: "none",
+								stroke: "currentColor",
+								strokeWidth: "1.5",
+								strokeLinecap: "round",
+								strokeLinejoin: "round",
+								className: "size-4 md:size-5",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "m18 15-6-6-6 6" })
+							})
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => scrollToStep(active + 1),
+							disabled: active === total - 1,
+							className: "grid size-10 place-items-center rounded-full border border-white/20 text-white/60 transition-all hover:border-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed md:size-12",
+							"aria-label": "Next step",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
+								xmlns: "http://www.w3.org/2000/svg",
+								viewBox: "0 0 24 24",
+								fill: "none",
+								stroke: "currentColor",
+								strokeWidth: "1.5",
+								strokeLinecap: "round",
+								strokeLinejoin: "round",
+								className: "size-4 md:size-5",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "m6 9 6 6 6-6" })
+							})
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 md:bottom-10",
+						children: STEPS.map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => scrollToStep(i),
+							className: `h-1.5 rounded-full transition-all duration-500 ${i === active ? "w-8 bg-[oklch(0.75_0.19_55)]" : "w-1.5 bg-white/20 hover:bg-white/40"}`,
+							"aria-label": `Go to step ${i + 1}`
+						}, i))
+					})
+				]
 			})]
 		})
 	});

@@ -4,8 +4,8 @@ import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react
 import { i as useScroll, n as useTransform } from "../_libs/framer-motion.mjs";
 import { t as motion } from "../_libs/motion.mjs";
 import { A as Camera, M as ArrowUpRight, O as Check, S as Globe, a as Users, b as Layers, d as Rocket, i as Video, j as Award, k as ChartLine, l as Sparkles, m as Palette, s as Target, t as Zap, u as Search } from "../_libs/lucide-react.mjs";
-import { a as Counter, c as Magnetic, f as Reveal, h as SplitReveal, i as Contact, l as Nav, m as SmoothScroll, n as AmbientBackground, o as Footer } from "./sections-axuzLCg4.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/services-BGdaDUwu.js
+import { a as Counter, c as Magnetic, f as Reveal, h as SplitReveal, i as Contact, l as Nav, m as SmoothScroll, n as AmbientBackground, o as Footer } from "./sections-BZW38pHv.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/services-JdXP8uTD.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SERVICES = [

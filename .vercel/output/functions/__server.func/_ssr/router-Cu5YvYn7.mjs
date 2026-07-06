@@ -4,10 +4,10 @@ import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter,
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as QueryClientProvider } from "../_libs/tanstack__react-query.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-CvMItloO.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-Cu5YvYn7.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-DVzpkJzw.css";
+var styles_default = "/assets/styles-fdI5Cfcq.css";
 function reportLovableError(error, context = {}) {
 	if (typeof window === "undefined") return;
 	window.__lovableEvents?.captureException?.(error, {
@@ -204,7 +204,7 @@ function RootComponent() {
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 	});
 }
-var $$splitComponentImporter$1 = () => import("./services-BGdaDUwu.mjs");
+var $$splitComponentImporter$1 = () => import("./services-JdXP8uTD.mjs");
 var Route$1 = createFileRoute("/services")({
 	head: () => ({ meta: [
 		{ title: "Services - Branding, Web, SEO, Ads & Content · Cogito Digital" },
@@ -231,7 +231,7 @@ var Route$1 = createFileRoute("/services")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./routes-Bp0arKgo.mjs");
+var $$splitComponentImporter = () => import("./routes-Ce1fBRXS.mjs");
 var Route = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 var ServicesRoute = Route$1.update({
 	id: "/services",
