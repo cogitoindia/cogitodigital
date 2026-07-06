@@ -4,9 +4,9 @@ import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import logoAsset from "@/assets/Cogito_Digital_Logo.webp";
 
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 /*  Smooth scroll (Lenis)                              */
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     let raf = 0;
@@ -35,9 +35,9 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 /*  Custom glow cursor                                  */
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 export function GlowCursor() {
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -89,9 +89,9 @@ export function GlowCursor() {
   );
 }
 
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 /*  Navigation                                          */
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -210,7 +210,7 @@ export function Nav() {
         {/* Desktop CTA */}
         <a
           href={homeAnchor("#contact")}
-          className="hidden group md:inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
+          className="hidden group md:inline-flex items-center gap-2 rounded-[5px] bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
         >
           Start Project
           <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
@@ -272,7 +272,7 @@ export function Nav() {
               <a
                 href={homeAnchor("#contact")}
                 onClick={() => setMobileOpen(false)}
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-4 py-3 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
+                className="group inline-flex items-center justify-center gap-2 rounded-[5px] bg-foreground px-4 py-3 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
               >
                 Start Project
                 <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
@@ -285,9 +285,9 @@ export function Nav() {
   );
 }
 
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 /*  Section transition helper                           */
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 export function Reveal({
   children,
   delay = 0,
@@ -312,9 +312,9 @@ export function Reveal({
   );
 }
 
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 /*  Split-text reveal                                   */
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 export function SplitReveal({
   text,
   className = "",
@@ -347,9 +347,9 @@ export function SplitReveal({
   );
 }
 
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 /*  Counter                                             */
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const [n, setN] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -383,9 +383,9 @@ export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   );
 }
 
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 /*  Magnetic wrapper                                    */
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 export function Magnetic({ children, strength = 0.35 }: { children: ReactNode; strength?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
@@ -412,7 +412,7 @@ export function Magnetic({ children, strength = 0.35 }: { children: ReactNode; s
   );
 }
 
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 /*  Modal for AnimatePresence exports                   */
-/* ————————————————————————————————————————————————— */
+/* ------------------------------------------------- */
 export { AnimatePresence };

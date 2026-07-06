@@ -60,7 +60,7 @@ import sum6 from "@/assets/sumeru/sumerustudio-branding-creative-7.webp";
 import sum7 from "@/assets/sumeru/sumerustudio-branding-creative-9.webp";
 
 /* ══════════════════════════════════════════════════════════════ */
-/*  BACKGROUND — mesh + orange gradient + particles                */
+/*  BACKGROUND - mesh + orange gradient + particles                */
 /* ══════════════════════════════════════════════════════════════ */
 export function AmbientBackground() {
   return (
@@ -111,7 +111,7 @@ export function AmbientBackground() {
 }
 
 /* ══════════════════════════════════════════════════════════════ */
-/*  HERO — split editorial + orbital workspace                     */
+/*  HERO - split editorial + orbital workspace                     */
 /* ══════════════════════════════════════════════════════════════ */
 function useMouseParallax() {
   const x = useMotionValue(0);
@@ -145,7 +145,7 @@ export function Hero() {
   return (
     <section id="top" className="relative min-h-[100svh] pt-28">
       <div className="mx-auto grid max-w-[1400px] gap-10 px-6 md:grid-cols-[minmax(0,42%)_minmax(0,58%)] md:pt-10">
-        {/* LEFT — editorial */}
+        {/* LEFT - editorial */}
         <div className="relative z-10 flex flex-col justify-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -183,7 +183,7 @@ export function Hero() {
             className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground"
           >
             Helping ambitious businesses grow through branding, websites, SEO,
-            content production and performance marketing — designed with care,
+            content production and performance marketing - designed with care,
             engineered for results.
           </motion.p>
 
@@ -196,7 +196,7 @@ export function Hero() {
             <Magnetic>
               <a
                 href="#contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background shadow-luxe transition-transform hover:scale-[1.04]"
+                className="group inline-flex items-center gap-2 rounded-[5px] bg-foreground px-6 py-3.5 text-sm font-medium text-background shadow-luxe transition-transform hover:scale-[1.04]"
               >
                 Start Your Project
                 <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -205,7 +205,7 @@ export function Hero() {
             <Magnetic strength={0.2}>
               <a
                 href="#work"
-                className="group inline-flex items-center gap-2 rounded-full border border-border bg-white/60 px-6 py-3.5 text-sm font-medium backdrop-blur transition-colors hover:bg-white"
+                className="group inline-flex items-center gap-2 rounded-[5px] border border-border bg-white/60 px-6 py-3.5 text-sm font-medium backdrop-blur transition-colors hover:bg-white"
               >
                 <span className="grid size-6 place-items-center rounded-full bg-foreground text-background">
                   <Play className="size-3 fill-current" />
@@ -240,7 +240,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* RIGHT — floating workspace */}
+        {/* RIGHT - floating workspace */}
         <div className="relative h-[520px] md:h-[720px] overflow-hidden">
           <div className="absolute inset-0">
             {/* Orbit rings visualized */}
@@ -257,7 +257,7 @@ export function Hero() {
               ))}
             </div>
 
-            {/* Orbit layer 1 — social */}
+            {/* Orbit layer 1 - social */}
             <OrbitLayer
               radius={140}
               duration={14}
@@ -272,7 +272,7 @@ export function Hero() {
               ]}
             />
 
-            {/* Orbit layer 2 — services */}
+            {/* Orbit layer 2 - services */}
             <OrbitLayer
               radius={200}
               duration={22}
@@ -288,7 +288,7 @@ export function Hero() {
               glass
             />
 
-            {/* Orbit layer 3 — cards */}
+            {/* Orbit layer 3 - cards */}
             <OrbitLayer
               radius={280}
               duration={38}
@@ -302,7 +302,7 @@ export function Hero() {
               ]}
             />
 
-            {/* Center — Homepage image */}
+            {/* Center - Homepage image */}
             <motion.div
               style={{ x: fg.x, y: fg.y }}
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -553,7 +553,7 @@ function OrbitLayer({
 }
 
 /* ══════════════════════════════════════════════════════════════ */
-/*  SERVICES — floating glass spheres                              */
+/*  SERVICES - floating glass spheres                              */
 /* ══════════════════════════════════════════════════════════════ */
 const SERVICES = [
   { title: "Brand Strategy", desc: "Positioning, story, and identity systems that scale.", icon: Palette, img: ecoSearch },
@@ -561,7 +561,7 @@ const SERVICES = [
   { title: "SEO", desc: "Rank for the searches that grow your revenue.", icon: Search, img: csSaas1 },
   { title: "Performance Marketing", desc: "Meta & Google Ads engineered for ROAS.", icon: Target, img: bpOrganic },
   { title: "Social Media", desc: "Content, community and creative that resonates.", icon: Megaphone, img: csSaas3 },
-  { title: "Content Production", desc: "Photo, film and story — crafted, not templated.", icon: Video, img: contactHeroBg },
+  { title: "Content Production", desc: "Photo, film and story - crafted, not templated.", icon: Video, img: contactHeroBg },
   { title: "Lead Generation", desc: "Funnels, forms and follow-up that fill your pipeline.", icon: TrendingUp, img: csSaas4 },
   { title: "Brand Identity", desc: "Logos, guidelines and design systems built to last.", icon: Sparkles, img: bpAutomation },
 ];
@@ -574,7 +574,7 @@ export function Services() {
         <div className="mb-16 flex flex-wrap items-end justify-between gap-6">
           <div>
             <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-              02 — Services
+Services
             </div>
             <h2 className="text-display text-[clamp(2.5rem,6vw,5.5rem)]">
               <SplitReveal text="Everything" /> <br />
@@ -585,7 +585,7 @@ export function Services() {
           </div>
           <Reveal>
             <p className="max-w-sm text-muted-foreground">
-              Eight disciplines under one roof. Grab, hover, click — each sphere
+              Eight disciplines under one roof. Grab, hover, click - each sphere
               opens into a full-screen chapter of what we do.
             </p>
           </Reveal>
@@ -666,7 +666,7 @@ function ServiceSphere({ s, i, onOpen }: { s: any; i: number; onOpen: () => void
         className="relative h-full w-full cursor-pointer transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
       >
         {/* Front face */}
-        <div className="absolute inset-0 overflow-hidden rounded-[2rem] border border-glass-border bg-glass p-6 shadow-luxe backdrop-blur-xl [backface-visibility:hidden]">
+        <div className="absolute inset-0 overflow-hidden rounded-[5px] border border-glass-border bg-glass p-6 shadow-luxe backdrop-blur-xl [backface-visibility:hidden]">
           <div
             className="absolute inset-0 opacity-70"
             style={{
@@ -688,8 +688,8 @@ function ServiceSphere({ s, i, onOpen }: { s: any; i: number; onOpen: () => void
           </div>
         </div>
 
-        {/* Back face — banner image with icon in center */}
-        <div className="absolute inset-0 overflow-hidden rounded-[2rem] shadow-luxe [backface-visibility:hidden] [transform:rotateY(180deg)]">
+        {/* Back face - banner image with icon in center */}
+        <div className="absolute inset-0 overflow-hidden rounded-[5px] shadow-luxe [backface-visibility:hidden] [transform:rotateY(180deg)]">
           <img
             src={s.img}
             alt={s.title}
@@ -712,7 +712,7 @@ function ServiceSphere({ s, i, onOpen }: { s: any; i: number; onOpen: () => void
 }
 
 /* ══════════════════════════════════════════════════════════════ */
-/*  ABOUT — pinned storytelling                                    */
+/*  ABOUT - pinned storytelling                                    */
 /* ══════════════════════════════════════════════════════════════ */
 export function About() {
   const ref = useRef<HTMLDivElement>(null);
@@ -724,7 +724,7 @@ export function About() {
     <section id="about" ref={ref} className="relative py-32">
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="mb-8 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-          03 — About
+About
         </div>
         <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] md:gap-24">
           <motion.h2
@@ -744,7 +744,7 @@ export function About() {
             </p>
             <p>
               We believe design is a competitive advantage. Motion is a language.
-              And every pixel — every millisecond — is a chance to earn trust.
+              And every pixel - every millisecond - is a chance to earn trust.
             </p>
             <div className="grid grid-cols-2 gap-3 pt-4">
               {["Craft over templates", "Strategy first", "Motion as language", "Metrics that matter"].map((t) => (
@@ -868,7 +868,7 @@ function EcosystemCards() {
             {/* Dark overlay */}
             <div className={`absolute inset-0 transition-all duration-700 ${isActive ? "bg-black/40" : "bg-black/60"}`} />
 
-            {/* Collapsed state — icon + horizontal text (mobile) / vertical text (desktop) */}
+            {/* Collapsed state - icon + horizontal text (mobile) / vertical text (desktop) */}
             <div className={`absolute inset-0 flex items-center justify-center gap-3 md:flex-col md:gap-4 transition-all duration-500 ${isActive ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
               <Icon className="size-5 text-white/70" />
               <div className="text-[12px] uppercase tracking-[0.2em] text-white/80 md:hidden">
@@ -879,7 +879,7 @@ function EcosystemCards() {
               </div>
             </div>
 
-            {/* Expanded state — content */}
+            {/* Expanded state - content */}
             <div className={`absolute inset-0 flex flex-col justify-end p-6 transition-all duration-700 md:p-10 ${isActive ? "opacity-100" : "opacity-0"}`}>
               {/* Stat badge top-right */}
               <div className="absolute right-4 top-4 rounded-xl bg-white px-3 py-2 text-center shadow-lg md:right-8 md:top-8 md:px-4 md:py-3">
@@ -903,7 +903,7 @@ function EcosystemCards() {
 }
 
 /* ══════════════════════════════════════════════════════════════ */
-/*  PORTFOLIO — horizontal pinned scroll                           */
+/*  PORTFOLIO - horizontal pinned scroll                           */
 /* ══════════════════════════════════════════════════════════════ */
 const WORK = [
   { title: "Luxury Living Branding", tag: "Brand · Web", tone: "from-orange-200 to-orange-400", images: [luxury1, luxury2, luxury3, luxury4] },
@@ -933,7 +933,7 @@ export function Portfolio() {
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
         <div className="mx-auto mb-10 flex w-full max-w-[1400px] items-end justify-between px-6">
           <div>
-            <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">04 — Selected Work</div>
+            <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Selected Work</div>
             <h2 className="text-display text-[clamp(2rem,5vw,4rem)]">
               Case studies, <span className="italic text-muted-foreground" style={{ fontFamily: "'General Sans'" }}>not portfolios.</span>
             </h2>
@@ -971,7 +971,7 @@ function WorkCard({ w, i, onOpenLightbox }: { w: any; i: number; onOpenLightbox:
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-        className="relative flex h-[70vh] w-[62vw] shrink-0 flex-col items-center justify-center overflow-hidden rounded-[2.5rem] shadow-luxe md:w-[46vw]"
+        className="relative flex h-[70vh] w-[62vw] shrink-0 flex-col items-center justify-center overflow-hidden rounded-[5px] shadow-luxe md:w-[46vw]"
         style={{
           backgroundImage: `url(${csSaas1})`,
           backgroundSize: "cover",
@@ -1033,14 +1033,14 @@ function WorkCard({ w, i, onOpenLightbox }: { w: any; i: number; onOpenLightbox:
           >
             <a
               href="/services"
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-medium text-foreground shadow-xl transition-all hover:scale-105 hover:shadow-2xl"
+              className="group inline-flex items-center gap-2 rounded-[5px] bg-white px-7 py-4 text-sm font-medium text-foreground shadow-xl transition-all hover:scale-105 hover:shadow-2xl"
             >
               Explore Services
               <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:translate-y-[-1px]" />
             </a>
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full border-2 border-white/50 bg-white/15 px-7 py-4 text-sm font-medium text-white backdrop-blur transition-all hover:scale-105 hover:bg-white/25 hover:border-white/70"
+              className="group inline-flex items-center gap-2 rounded-[5px] border-2 border-white/50 bg-white/15 px-7 py-4 text-sm font-medium text-white backdrop-blur transition-all hover:scale-105 hover:bg-white/25 hover:border-white/70"
             >
               Start a Project
               <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:translate-y-[-1px]" />
@@ -1063,7 +1063,7 @@ function WorkCard({ w, i, onOpenLightbox }: { w: any; i: number; onOpenLightbox:
       onMouseLeave={() => { rx.set(0); ry.set(0); }}
       onClick={() => w.images && onOpenLightbox(w.images)}
       style={{ rotateX: srx, rotateY: sry, transformPerspective: 1200 }}
-      className="relative h-[70vh] w-[62vw] shrink-0 overflow-hidden rounded-[2.5rem] shadow-luxe md:w-[46vw] cursor-pointer"
+      className="relative h-[70vh] w-[62vw] shrink-0 overflow-hidden rounded-[5px] shadow-luxe md:w-[46vw] cursor-pointer"
       data-cursor="hover"
     >
       {/* Use ImageSlider for Luxury Living Branding card */}
@@ -1110,15 +1110,15 @@ function WorkCard({ w, i, onOpenLightbox }: { w: any; i: number; onOpenLightbox:
 }
 
 /* ══════════════════════════════════════════════════════════════ */
-/*  PROCESS — pinned timeline                                      */
+/*  PROCESS - pinned timeline                                      */
 /* ══════════════════════════════════════════════════════════════ */
 const STEPS = [
-  { n: "01", t: "Discover", d: "Immersion, interviews and audits — we learn your business inside out." },
+  { n: "01", t: "Discover", d: "Immersion, interviews and audits - we learn your business inside out." },
   { n: "02", t: "Strategy", d: "Positioning, messaging and a roadmap tied to real outcomes." },
   { n: "03", t: "Design", d: "Brand and product design that feels intentional, not decorative." },
   { n: "04", t: "Develop", d: "Editorial, motion-driven builds engineered for performance." },
-  { n: "05", t: "Launch", d: "A launch moment — narrative, assets, campaigns, PR." },
-  { n: "06", t: "Scale", d: "SEO, ads and content — compounding growth month over month." },
+  { n: "05", t: "Launch", d: "A launch moment - narrative, assets, campaigns, PR." },
+  { n: "06", t: "Scale", d: "SEO, ads and content - compounding growth month over month." },
 ];
 export function Process() {
   return (
@@ -1126,7 +1126,7 @@ export function Process() {
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="mb-16 grid gap-4 md:grid-cols-2 md:items-end">
           <div>
-            <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">05 — Process</div>
+            <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Process</div>
             <h2 className="text-display text-[clamp(2.5rem,6vw,5.5rem)]">
               Six chapters. <br />
               <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>
@@ -1136,7 +1136,7 @@ export function Process() {
           </div>
           <Reveal>
             <p className="text-muted-foreground">
-              A process that keeps taste and craft at the center — from the first
+              A process that keeps taste and craft at the center - from the first
               conversation to the tenth quarter of growth.
             </p>
           </Reveal>
@@ -1169,7 +1169,7 @@ export function Process() {
 /* ══════════════════════════════════════════════════════════════ */
 const TESTIMONIALS = [
   { n: "Rohit S.", r: "Founder, Aurora Coffee", q: "They didn't just design a brand. They gave us a voice we hear every day." },
-  { n: "Ananya M.", r: "CMO, Meridian Realty", q: "Traffic doubled in one quarter. But the site itself — that's the story." },
+  { n: "Ananya M.", r: "CMO, Meridian Realty", q: "Traffic doubled in one quarter. But the site itself - that's the story." },
   { n: "Vikram P.", r: "CEO, Kite Analytics", q: "The most thoughtful team we've worked with. Every detail earns its place." },
   { n: "Priya K.", r: "Founder, Nova", q: "Cogito is the reason our launch felt like an event, not a post." },
   { n: "Arjun T.", r: "Director, Field Studio", q: "Motion, taste, and results. Rare to find all three." },
@@ -1180,7 +1180,7 @@ export function Testimonials() {
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">06 — Voices</div>
+            <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Voices</div>
             <h2 className="text-display text-[clamp(2.5rem,6vw,5rem)]">
               Founders who <span className="italic text-[oklch(0.75_0.19_55)]" style={{ fontFamily: "'General Sans'" }}>trusted us.</span>
             </h2>
@@ -1238,7 +1238,7 @@ export function Testimonials() {
 }
 
 /* ══════════════════════════════════════════════════════════════ */
-/*  BRANDS — logo wall on dark gradient                            */
+/*  BRANDS - logo wall on dark gradient                            */
 /* ══════════════════════════════════════════════════════════════ */
 const brandLogos = import.meta.glob("@/assets/brands/*.webp", {
   eager: true,
@@ -1283,7 +1283,7 @@ export function Brands() {
           <div className="relative">
             <Reveal>
               <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-white/50">
-                07 — Brands
+Brands
               </div>
             </Reveal>
             <Reveal delay={0.05}>
@@ -1299,7 +1299,7 @@ export function Brands() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-5 max-w-xl text-base text-white/60">
-                From heritage hospitality to modern lifestyle labels — a
+                From heritage hospitality to modern lifestyle labels - a
                 growing family of brands scaling with us.
               </p>
             </Reveal>
@@ -1344,7 +1344,7 @@ export function Contact() {
     <section id="contact" className="relative py-32">
       <div className="mx-auto grid max-w-[1400px] gap-16 px-6 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
         <div>
-          <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">08 — Contact</div>
+          <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Contact</div>
 
           <h2 className="text-display text-[clamp(2.5rem,7vw,6rem)]">
             Let's build <br />
@@ -1396,7 +1396,7 @@ export function Contact() {
             <Magnetic>
               <button
                 type="submit"
-                className="mt-4 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background shadow-luxe hover:scale-[1.03]"
+                className="mt-4 inline-flex items-center gap-2 rounded-[5px] bg-foreground px-6 py-3.5 text-sm font-medium text-background shadow-luxe hover:scale-[1.03]"
               >
                 Send message <ArrowUpRight className="size-4" />
               </button>
@@ -1422,7 +1422,7 @@ export function Footer() {
         <div className="mt-14 flex flex-wrap items-center justify-between gap-6 border-t border-border/60 pt-8 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <span className="grid size-7 place-items-center rounded-full bg-foreground text-background text-[10px]">C.</span>
-            © {new Date().getFullYear()} Cogito Digital — Siliguri, India
+            © {new Date().getFullYear()} Cogito Digital - Siliguri, India
           </div>
           <div className="flex items-center gap-4">
             {[Instagram, Facebook, Linkedin, Youtube].map((I, i) => (

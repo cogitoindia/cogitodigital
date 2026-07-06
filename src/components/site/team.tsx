@@ -58,7 +58,7 @@ export function Team() {
           transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
           className="mb-16"
         >
-          <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-white/50">08 — Who We Are</div>
+          <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-white/50">Who We Are</div>
           <h2 className="text-display text-[clamp(2rem,5vw,4rem)] text-white">
             People Who Make It <span className="italic text-[oklch(0.82_0.17_70)]" style={{ fontFamily: "'General Sans'" }}>Happen.</span>
           </h2>
@@ -113,7 +113,7 @@ export function Team() {
         >
           <a
             href="#contact"
-            className="group inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-foreground px-8 py-4 text-sm font-medium text-background transition-all hover:scale-105 hover:bg-background hover:text-foreground"
+            className="group inline-flex items-center gap-2 rounded-[5px] border-2 border-foreground bg-foreground px-8 py-4 text-sm font-medium text-background transition-all hover:scale-105 hover:bg-background hover:text-foreground"
           >
             Discover All
             <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:translate-y-[-1px]" />

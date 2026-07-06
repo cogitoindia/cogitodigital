@@ -24,7 +24,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-[5px] bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Back home
           </Link>
@@ -56,7 +56,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-[5px] bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
             Try again
           </button>
@@ -77,7 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Cogito Digital — We Build Brands People Remember" },
+      { title: "Cogito Digital - We Build Brands People Remember" },
       {
         name: "description",
         content:
@@ -85,12 +85,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "Cogito Digital" },
       { name: "keywords", content: "Digital Marketing Agency in Siliguri, Branding Agency Siliguri, Website Development, SEO Services, Performance Marketing" },
-      { property: "og:title", content: "Cogito Digital — We Build Brands People Remember" },
+      { property: "og:title", content: "Cogito Digital - We Build Brands People Remember" },
       { property: "og:description", content: "Cogito Digital is a premium brand growth studio in Siliguri crafting branding, websites, SEO, content and performance marketing for ambitious businesses." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@cogitodigital" },
-      { name: "twitter:title", content: "Cogito Digital — We Build Brands People Remember" },
+      { name: "twitter:title", content: "Cogito Digital - We Build Brands People Remember" },
       { name: "description", content: "Cogito Digital is a premium brand growth studio in Siliguri crafting branding, websites, SEO, content and performance marketing for ambitious businesses." },
       { name: "twitter:description", content: "Cogito Digital is a premium brand growth studio in Siliguri crafting branding, websites, SEO, content and performance marketing for ambitious businesses." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/95450a94-7c5f-47ac-b2b3-68ebc6202006/id-preview-1cbf6fa4--80f75c06-1334-47c0-8d53-8e6f561dc6e1.lovable.app-1783221432468.png" },

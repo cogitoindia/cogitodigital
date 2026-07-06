@@ -11,11 +11,11 @@ import { AmbientBackground, Contact, Footer } from "@/components/site/sections";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Branding, Web, SEO, Ads & Content · Cogito Digital" },
+      { title: "Services - Branding, Web, SEO, Ads & Content · Cogito Digital" },
       {
         name: "description",
         content:
-          "Explore Cogito Digital's services: brand identity, website design & development, SEO, performance marketing and content production — engineered for measurable growth.",
+          "Explore Cogito Digital's services: brand identity, website design & development, SEO, performance marketing and content production - engineered for measurable growth.",
       },
       { property: "og:title", content: "Services · Cogito Digital" },
       { property: "og:description", content: "Five disciplines. One studio. Built to make ambitious brands unforgettable." },
@@ -38,7 +38,7 @@ const SERVICES = [
     tone: "from-orange-200 via-orange-100 to-amber-50",
     accent: "oklch(0.75 0.19 55)",
     description:
-      "We architect brands from the inside out — from strategy and messaging to full identity systems, guidelines and brand-ready assets that stay consistent as you grow.",
+      "We architect brands from the inside out - from strategy and messaging to full identity systems, guidelines and brand-ready assets that stay consistent as you grow.",
     deliverables: [
       "Brand strategy & positioning",
       "Naming & verbal identity",
@@ -67,7 +67,7 @@ const SERVICES = [
     tone: "from-blue-100 via-indigo-50 to-white",
     accent: "oklch(0.65 0.15 250)",
     description:
-      "From landing pages to full product sites — we design and engineer websites that load fast, look editorial, feel alive and turn visitors into customers.",
+      "From landing pages to full product sites - we design and engineer websites that load fast, look editorial, feel alive and turn visitors into customers.",
     deliverables: [
       "Marketing websites",
       "E-commerce (Shopify / Headless)",
@@ -96,7 +96,7 @@ const SERVICES = [
     tone: "from-emerald-100 via-teal-50 to-white",
     accent: "oklch(0.7 0.14 165)",
     description:
-      "Technical SEO, content architecture and authority building — a compounding growth channel that keeps paying dividends long after ad budgets stop.",
+      "Technical SEO, content architecture and authority building - a compounding growth channel that keeps paying dividends long after ad budgets stop.",
     deliverables: [
       "Technical SEO audits",
       "Keyword & intent research",
@@ -125,7 +125,7 @@ const SERVICES = [
     tone: "from-rose-100 via-pink-50 to-white",
     accent: "oklch(0.7 0.19 20)",
     description:
-      "We treat ad accounts like product surfaces — creative, funnels, tracking and iteration cycles that turn spend into predictable, measurable pipeline.",
+      "We treat ad accounts like product surfaces - creative, funnels, tracking and iteration cycles that turn spend into predictable, measurable pipeline.",
     deliverables: [
       "Meta Ads (Instagram / Facebook)",
       "Google Ads (Search / P-Max)",
@@ -149,7 +149,7 @@ const SERVICES = [
     slug: "content",
     n: "05",
     title: "Content & Social Media",
-    tagline: "Photo, film and story — crafted, not templated.",
+    tagline: "Photo, film and story - crafted, not templated.",
     icon: Video,
     tone: "from-violet-100 via-fuchsia-50 to-white",
     accent: "oklch(0.65 0.2 300)",
@@ -176,7 +176,7 @@ const SERVICES = [
   },
 ] as const;
 
-/* Portfolio — reuse uploaded brand logos, tag each with a service */
+/* Portfolio - reuse uploaded brand logos, tag each with a service */
 const brandLogos = import.meta.glob("@/assets/brands/*.asset.json", {
   eager: true,
 }) as Record<string, { default: { url: string; original_filename: string } }>;
@@ -269,7 +269,7 @@ function ServicesHero() {
         <div className="mt-12 grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <Reveal delay={0.3}>
             <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Every service below is engineered for one thing — to make ambitious
+              Every service below is engineered for one thing - to make ambitious
               brands measurably more valuable. Strategy, design, engineering and
               distribution, under one roof.
             </p>
@@ -514,7 +514,7 @@ function ServiceSection({ s, idx }: { s: (typeof SERVICES)[number]; idx: number 
               <Magnetic>
                 <a
                   href="/#contact"
-                  className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background shadow-luxe transition-transform hover:scale-[1.03]"
+                  className="group inline-flex items-center gap-2 rounded-[5px] bg-foreground px-5 py-3 text-sm font-medium text-background shadow-luxe transition-transform hover:scale-[1.03]"
                 >
                   Start a {s.title.split(" ")[0].toLowerCase()} project
                   <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -522,7 +522,7 @@ function ServiceSection({ s, idx }: { s: (typeof SERVICES)[number]; idx: number 
               </Magnetic>
               <a
                 href="#work"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-white/60 px-5 py-3 text-sm font-medium backdrop-blur transition-colors hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-[5px] border border-border bg-white/60 px-5 py-3 text-sm font-medium backdrop-blur transition-colors hover:bg-white"
               >
                 See {s.title.split(" ")[0].toLowerCase()} work
               </a>
@@ -569,8 +569,8 @@ const LIFECYCLE = [
   { t: "Discover", d: "Audit, interviews, positioning workshop.", i: Users },
   { t: "Design", d: "Strategy → identity → interface systems.", i: Palette },
   { t: "Develop", d: "Editorial motion builds, engineered for speed.", i: Layers },
-  { t: "Launch", d: "Assets, PR, campaign — a moment, not a post.", i: Rocket },
-  { t: "Scale", d: "SEO, ads, content — compounding growth.", i: LineChart },
+  { t: "Launch", d: "Assets, PR, campaign - a moment, not a post.", i: Rocket },
+  { t: "Scale", d: "SEO, ads, content - compounding growth.", i: LineChart },
 ];
 
 const EXPERTISE = [
@@ -589,7 +589,7 @@ function ExpertiseBars() {
         <div className="mb-16 grid gap-6 md:grid-cols-2 md:items-end">
           <div>
             <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-              06 — Expertise
+Expertise
             </div>
             <h2 className="text-display text-[clamp(2.25rem,5vw,4.5rem)]">
               A studio built for the{" "}
@@ -604,7 +604,7 @@ function ExpertiseBars() {
           </div>
           <Reveal>
             <p className="text-muted-foreground">
-              We measure ourselves on both craft and outcome — every service is
+              We measure ourselves on both craft and outcome - every service is
               backed by senior operators, transparent scorecards and metrics
               that matter to your business.
             </p>
@@ -697,7 +697,7 @@ function PortfolioWork() {
         <div className="mb-10 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,auto)] md:items-end">
           <div>
             <div className="mb-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-              07 — Our Work
+Our Work
             </div>
             <h2 className="text-display text-[clamp(2.25rem,5vw,4.5rem)]">
               Projects, categorized by{" "}
